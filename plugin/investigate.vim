@@ -4,6 +4,7 @@
 " Version: 0.1.0
 " License: MIT, See LICENSE for text
 
+" Plugin and variable setup ------ {{{
 if exists('g:loaded_investigate_plugin')
   " finish
 endif
@@ -14,7 +15,9 @@ if !exists("g:investigate_use_dash")
 endif
 
 source plugin/investigate/*.vim
+" }}}
 
+" Return the executable tool for documentation to open with ------ {{{
 function! s:Executable()
   if has("mac")
     return "/usr/bin/open "
@@ -25,7 +28,9 @@ function! s:Executable()
   unlet g:loaded_investigate_plugin
   finish
 endfunction
+" }}}
 
+" Determine whether documentation should open with dash ------ {{{
 function! s:UseDash()
   if has("mac") && g:investigate_use_dash
     return 1
@@ -33,7 +38,10 @@ function! s:UseDash()
 
   return 0
 endfunction
+" }}}
 
+" Another string to be added after the executable before ------ {{{
+"   the search string is appended
 function! s:IntermediateCommand()
   if s:UseDash()
     return "dash://"
@@ -41,7 +49,13 @@ function! s:IntermediateCommand()
 
   return ""
 endfunction
+" }}}
 
+" Setup the commanded based on some settings ------ {{{
+"   swap occurances of %s with the current word
+"   swap out %c or %e with the intermediate command
+"   and the executable respectively
+"   %i at the beginning indicates leave the string as it's given
 function! s:BuildCommand()
   let l:searchString = g:SearchStringForFiletype(&filetype, s:UseDash())
   let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "")
@@ -58,7 +72,9 @@ function! s:BuildCommand()
   endif
   return l:command
 endfunction
+" }}}
 
+" The actual open command for mapping ------ {{{
 function! OpenHelp()
   let l:command = s:BuildCommand()
   if l:command =~ s:Executable()
@@ -68,6 +84,7 @@ function! OpenHelp()
     redraw!
   endif
 endfunction
+" }}}
 
 map <S-k> :call OpenHelp()<cr>
 

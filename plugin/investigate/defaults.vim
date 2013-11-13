@@ -1,3 +1,4 @@
+" Plugin and variable setup ------ {{{
 if exists("g:loaded_investigate_defaults")
   " finish
 endif
@@ -6,12 +7,17 @@ let g:loaded_investigate_defaults = 1
 let s:dashString    = 0
 let s:searchURL     = 1
 let s:customCommand = 2
+" }}}
 
+" Default language settings ------ {{{
 let s:defaultLocations = {
   \ 'c': ['c:%s', 'http://en.cppreference.com/mwiki/index.php?search=%s'],
   \ 'vim': ['vim:%s', 'http://vim.wikia.com/wiki/Special:Search?search=%s', '%i:h %s']
 \ }
+" }}}
 
+" Check to make sure the language is supported ------ {{{
+"   if not echo an error message
 function! s:HasKeyForFiletype(filetype)
   if has_key(s:defaultLocations, a:filetype)
     return 1
@@ -20,7 +26,9 @@ function! s:HasKeyForFiletype(filetype)
     return 0
   endif
 endfunction
+" }}}
 
+" Check for custom commands specific to the language ------ {{{
 function! s:HasCustomCommandForFiletype(filetype)
   return len(s:defaultLocations[a:filetype]) > 2
 endfunction
@@ -28,7 +36,9 @@ endfunction
 function! s:CustomCommandForFiletype(filetype)
   return s:defaultLocations[a:filetype][s:customCommand]
 endfunction
+" }}}
 
+" Choose file command based on custom, dash or URL ------ {{{
 function! g:SearchStringForFiletype(filetype, forDash)
   if s:HasCustomCommandForFiletype(a:filetype)
     return s:CustomCommandForFiletype(a:filetype)
@@ -38,7 +48,9 @@ function! g:SearchStringForFiletype(filetype, forDash)
     return '"' . s:URLForFiletype(a:filetype) . '"'
   endif
 endfunction
+" }}}
 
+" Dash configuration ------ {{{
 function! s:CustomDashStringForFiletype(filetype)
   return "g:investigate_dash_for_" . a:filetype
 endfunction
@@ -54,7 +66,9 @@ function! s:DashStringForFiletype(filetype)
     return s:defaultLocations[a:filetype][s:dashString]
   endif
 endfunction
+" }}}
 
+" URL configuration ------ {{{
 function! s:CustomURLStringForFiletype(filetype)
   return "g:investigate_url_for_" . a:filetype
 endfunction
@@ -70,4 +84,5 @@ function! s:URLForFiletype(filetype)
     return s:defaultLocations[a:filetype][s:searchURL]
   endif
 endfunction
+" }}}
 
