@@ -35,12 +35,28 @@ endfunction
 " }}}
 
 " Check for custom commands specific to the language ------ {{{
+function! s:CustomCommandVariableForFiletype(filetype)
+  return "g:investigate_command_for_" . a:filetype
+endfunction
+
+function! s:CustomCommandVariableKeyForFiletype(filetype)
+  return expand(g:investigate_command_for_{a:filetype})
+endfunction
+
 function! s:HasCustomCommandForFiletype(filetype)
-  return len(s:defaultLocations[a:filetype]) > 2
+  if len(s:defaultLocations[a:filetype]) > 2 || exists(s:CustomCommandVariableForFiletype(a:filetype))
+    return 1
+  endif
+
+  return 0
 endfunction
 
 function! s:CustomCommandForFiletype(filetype)
-  return s:defaultLocations[a:filetype][s:customCommand]
+  if exists(s:CustomCommandVariableForFiletype(a:filetype))
+    return s:CustomCommandVariableKeyForFiletype(a:filetype)
+  elseif s:HasKeyForFiletype(a:filetype)
+    return s:defaultLocations[a:filetype][s:customCommand]
+  endif
 endfunction
 " }}}
 
