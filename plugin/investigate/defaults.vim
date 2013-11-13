@@ -12,6 +12,12 @@ let s:customCommand = 2
 " Default language settings ------ {{{
 let s:defaultLocations = {
   \ 'c': ['c:%s', 'http://en.cppreference.com/mwiki/index.php?search=%s'],
+  \ 'cpp': ['cpp:%s', 'http://en.cppreference.com/mwiki/index.php?search=%s'],
+  \ 'go': ['go:%s', 'http://golang.org/search?q=%s'],
+  \ 'objc': ['macosx:%s', 'https://developer.apple.com/search/index.php?q=%s'],
+  \ 'php': ['php:%s', 'http://us3.php.net/results.php?q=%s'],
+  \ 'python':['python:%s', 'http://docs.python.org/2/search.html?q=%s'],
+  \ 'ruby': ['ruby:%s', 'http://ruby-doc.com/search.html?q=%s'],
   \ 'vim': ['vim:%s', 'http://vim.wikia.com/wiki/Special:Search?search=%s', '%i:h %s']
 \ }
 " }}}
