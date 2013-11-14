@@ -62,6 +62,10 @@ endfunction
 
 " Choose file command based on custom, dash or URL ------ {{{
 function! g:SearchStringForFiletype(filetype, forDash)
+  if !s:HasKeyForFiletype(a:filetype)
+    return ""
+  endif
+
   if s:HasCustomCommandForFiletype(a:filetype)
     return s:CustomCommandForFiletype(a:filetype)
   elseif a:forDash

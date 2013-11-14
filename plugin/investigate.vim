@@ -57,6 +57,10 @@ endfunction
 "   %i at the beginning indicates leave the string as it's given
 function! s:BuildCommand()
   let l:searchString = g:SearchStringForFiletype(&filetype, s:UseDash())
+  if l:searchString == ""
+    return ""
+  endif
+
   let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "")
   let l:command = s:Executable() . s:IntermediateCommand() . l:fullString
 
@@ -76,6 +80,10 @@ endfunction
 " The actual open command for mapping ------ {{{
 function! Investigate()
   let l:command = s:BuildCommand()
+  if l:command == ""
+    return
+  endif
+
   if l:command =~ s:Executable()
     execute system(l:command)
   else
