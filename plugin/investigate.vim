@@ -74,7 +74,7 @@ endfunction
 " }}}
 
 " The actual open command for mapping ------ {{{
-function! OpenHelp()
+function! Investigate()
   let l:command = s:BuildCommand()
   if l:command =~ s:Executable()
     execute system(l:command)
