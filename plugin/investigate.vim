@@ -5,19 +5,19 @@
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
-if exists('g:loaded_investigate_plugin')
-  " finish
+if exists('g:investigate_plugin_loaded')
+  finish
 endif
-let g:loaded_investigate_plugin = 1
+let g:investigate_plugin_loaded = 1
 
 if !exists("g:investigate_use_dash")
   let g:investigate_use_dash = 0
 endif
 
-source plugin/investigate/*.vim
+runtime! plugin/investigate/*.vim
 " }}}
 
-" Return the executable tool for documentation to open with ------ {{{
+" Return the executable tool for documentation opening ------ {{{
 function! s:Executable()
   if has("mac") && executable("open")
     return "open "
@@ -25,7 +25,6 @@ function! s:Executable()
   endif
 
   echomsg "No executable found for opening URLs"
-  unlet g:loaded_investigate_plugin
   finish
 endfunction
 " }}}

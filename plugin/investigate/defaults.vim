@@ -1,6 +1,6 @@
 " Plugin and variable setup ------ {{{
 if exists("g:loaded_investigate_defaults")
-  " finish
+  finish
 endif
 let g:loaded_investigate_defaults = 1
 
