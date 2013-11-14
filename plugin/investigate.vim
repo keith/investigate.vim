@@ -86,5 +86,3 @@ function! OpenHelp()
 endfunction
 " }}}
 
-map <S-k> :call OpenHelp()<cr>
-
