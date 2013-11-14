@@ -6,6 +6,12 @@ or with [Dash](http://kapeli.com/dash) on OS X.
 
 ## Configuration
 
+Example mapping:
+
+```
+nnoremap <S-k> :call OpenHelp()<cr>
+```
+
 I plan to allow tons of options for configuration for changing URLs,
 commands and executables. Some of these already work but since this
 plugin is still under heavy development I'm not going to document them
