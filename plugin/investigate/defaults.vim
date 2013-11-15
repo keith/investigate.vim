@@ -44,7 +44,7 @@ function! s:CustomCommandVariableKeyForFiletype(filetype)
 endfunction
 
 function! s:HasCustomCommandForFiletype(filetype)
-  if len(s:defaultLocations[a:filetype]) > 2 || exists(s:CustomCommandVariableForFiletype(a:filetype))
+  if (has_key(s:defaultLocations, a:filetype) && len(s:defaultLocations[a:filetype]) > 2) || exists(s:CustomCommandVariableForFiletype(a:filetype))
     return 1
   endif
 
@@ -60,11 +60,107 @@ function! s:CustomCommandForFiletype(filetype)
 endfunction
 " }}}
 
-" Choose file command based on custom, dash or URL ------ {{{
-function! g:SearchStringForFiletype(filetype, forDash)
-  if !s:HasKeyForFiletype(a:filetype)
+" Custom local file reading ------ {{{
+function! s:LoadFolderSpecificSettings()
+  " Only load the file once
+  if exists("g:investigate_loaded_local")
+    return
+  endif
+  let g:investigate_loaded_local = 1
+  echomsg "1"
+
+  " Get the local file path and make sure it exists
+  let l:filename = getcwd() . "/.investigaterc"
+  if glob(l:filename) == ""
+    return
+  endif
+
+  let l:contents = s:ReadAndCleanFile(l:filename)
+  let l:commands = s:ParseRCFileContents(l:contents)
+  for l:command in l:commands
+    echomsg "Adding: " . l:command
+    exec l:command
+  endfor
+endfunction
+
+" Return a list of commands parsed and formatted correctly
+function! s:ParseRCFileContents(contents)
+  let l:commands = []
+  let l:identifier = ""
+  for l:line in a:contents
+    " Attempt to get the identifier string from the line
+    let l:identifierString = s:IdentifierFromString(l:line)
+
+    " If the string isn't an identifier
+    if l:identifierString == ""
+      " Get the end of the command string
+      let l:command = s:MatchForString(l:line)
+      if l:command == ""
+        " Print an error if the syntax is invalid
+        echomsg "Invalid syntax: '" . l:line . "'"
+      elseif l:identifier == ""
+        " Print an error if no identifier has come before this line
+        echomsg "No previous identifier: " . l:line
+      else
+        " Build the entire command
+        let l:fullCommand = "let g:investigate_" . l:identifier . "_for_" . l:command
+        call add(l:commands, l:fullCommand)
+      endif
+    else
+      let l:identifier = l:identifierString
+    endif
+  endfor
+
+  return l:commands
+endfunction
+
+" Read the given filepath line by line
+" Trim all whitespace and ignore blank lines
+" Returns a list of the remaining lines
+" [dash]\n\nruby=rails -> ['[dash]', 'ruby=rails']
+function! s:ReadAndCleanFile(filepath)
+  let l:final = []
+  let l:contents = readfile(a:filepath)
+  for l:line in l:contents
+    let l:trimmed = substitute(l:line, "\\s", "", "g")
+    if l:trimmed != ""
+      call add(l:final, l:trimmed)
+    endif
+  endfor
+
+  return l:final
+endfunction
+
+
+" Return the end of the identifier string
+" ruby = rails -> ruby='rails'
+" ruby = rails = cpp -> ""
+" ruby -> ""
+function! s:MatchForString(string)
+  " Make sure there is only a single = in the string
+  if count(split(a:string, "\\zs"), "=") != 1
     return ""
   endif
+
+  let l:parts = split(a:string, "\\s*=\\s*")
+  return l:parts[0] . "='" . l:parts[1] . "'"
+endfunction
+
+" Get the function identifier for the passed string
+" [dash] -> dash
+" dash -> ""
+function! s:IdentifierFromString(string)
+  if strpart(a:string, 0, 1) == "[" && strpart(a:string, len(a:string) - 1, 1) == "]"
+    return strpart(a:string, 1, len(a:string) - 2)
+  endif
+
+  return ""
+endfunction
+" }}}
+
+" Choose file command based on custom, dash or URL ------ {{{
+function! g:SearchStringForFiletype(filetype, forDash)
+  call s:LoadFolderSpecificSettings()
 
   if s:HasCustomCommandForFiletype(a:filetype)
     return s:CustomCommandForFiletype(a:filetype)
