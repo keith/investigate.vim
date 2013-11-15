@@ -61,17 +61,17 @@ function! s:BuildCommand()
     return ""
   endif
 
-  let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "")
+  let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "g")
   let l:command = s:Executable() . s:IntermediateCommand() . l:fullString
 
   if l:fullString =~ "%c" && l:fullString =~ "%e"
-    let l:command = substitute(substitute(l:fullString, "%c", s:IntermediateCommand(), ""), "%e", s:Executable(), "")
+    let l:command = substitute(substitute(l:fullString, "%c", s:IntermediateCommand(), "g"), "%e", s:Executable(), "g")
   elseif l:fullString =~ "%c"
-    let l:command = s:Executable() . substitute(l:fullString, "%c", s:IntermediateCommand(), "")
+    let l:command = s:Executable() . substitute(l:fullString, "%c", s:IntermediateCommand(), "g")
   elseif l:fullString =~ "%e"
-    let l:command = substitute(l:fullString, "%e", s:Executable())
+    let l:command = substitute(l:fullString, "%e", s:Executable(), "g")
   elseif strpart(l:fullString, 0, 2) == "%i"
-    let l:command = substitute(l:fullString, "%i", "", "")
+    let l:command = substitute(l:fullString, "%i", "", "g")
   endif
   return l:command
 endfunction
