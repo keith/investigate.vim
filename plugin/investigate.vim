@@ -5,7 +5,7 @@
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
-if exists('g:investigate_plugin_loaded')
+if exists("g:investigate_plugin_loaded")
   finish
 endif
 let g:investigate_plugin_loaded = 1
