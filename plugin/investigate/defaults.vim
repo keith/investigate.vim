@@ -57,6 +57,8 @@ function! s:CustomCommandForFiletype(filetype)
   elseif s:HasKeyForFiletype(a:filetype)
     return s:defaultLocations[a:filetype][s:customCommand]
   endif
+
+  return ""
 endfunction
 " }}}
 
@@ -211,6 +213,8 @@ function! s:URLForFiletype(filetype)
   elseif s:HasKeyForFiletype(a:filetype)
     return s:defaultLocations[a:filetype][s:searchURL]
   endif
+
+  return ""
 endfunction
 " }}}
 
