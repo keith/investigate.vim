@@ -14,6 +14,7 @@ let s:defaultLocations = {
   \ "c": ["c", "http://en.cppreference.com/mwiki/index.php?search=%s"],
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=%s"],
   \ "go": ["go", "http://golang.org/search?q=%s"],
+  \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=%s"],
   \ "objc": ["macosx", "https://developer.apple.com/search/index.php?q=%s"],
   \ "php": ["php", "http://us3.php.net/results.php?q=%s"],
   \ "python":["python", "http://docs.python.org/2/search.html?q=%s"],
