@@ -18,6 +18,7 @@ let s:defaultLocations = {
   \ "objc": ["macosx", "https://developer.apple.com/search/index.php?q=%s"],
   \ "php": ["php", "http://us3.php.net/results.php?q=%s"],
   \ "python":["python", "http://docs.python.org/2/search.html?q=%s"],
+  \ "rails": ["rails", "http://api.rubyonrails.org/?q=%s"],
   \ "ruby": ["ruby", "http://ruby-doc.com/search.html?q=%s"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=%s", "%i:h %s"]
 \ }
@@ -70,7 +71,6 @@ function! s:LoadFolderSpecificSettings()
     return
   endif
   let g:investigate_loaded_local = 1
-  echomsg "1"
 
   " Get the local file path and make sure it exists
   let l:filename = getcwd() . "/.investigaterc"
@@ -81,7 +81,6 @@ function! s:LoadFolderSpecificSettings()
   let l:contents = s:ReadAndCleanFile(l:filename)
   let l:commands = s:ParseRCFileContents(l:contents)
   for l:command in l:commands
-    echomsg "Adding: " . l:command
     exec l:command
   endfor
 endfunction
@@ -165,13 +164,43 @@ endfunction
 function! g:SearchStringForFiletype(filetype, forDash)
   call s:LoadFolderSpecificSettings()
 
-  if s:HasCustomCommandForFiletype(a:filetype)
-    return s:CustomCommandForFiletype(a:filetype)
-  elseif a:forDash
-    return s:DashStringForFiletype(a:filetype)
-  else
-    return "\"" . s:URLForFiletype(a:filetype) . "\""
+  " Has syntax for foo, get string for foo, another function
+  let l:type = a:filetype
+  let l:syntax = s:SyntaxStringForFiletype(a:filetype)
+  if l:syntax != ""
+    let l:type = l:syntax
   endif
+
+  return s:SearchStringForSyntax(l:type, a:forDash)
+endfunction
+
+function! s:SearchStringForSyntax(syntax, forDash)
+  if s:HasCustomCommandForFiletype(a:syntax)
+    return s:CustomCommandForFiletype(a:syntax)
+  elseif a:forDash
+    return s:DashStringForFiletype(a:syntax)
+  else
+    return "\"" . s:URLForFiletype(a:syntax) . "\""
+  endif
+endfunction
+" }}}
+
+" Syntax replacement configuration ------ {{{
+function! s:CustomSyntaxStringForFiletype(filetype)
+  return "g:investigate_syntax_for_" . a:filetype
+endfunction
+
+function s:CustomSyntaxKeyForFiletype(filetype)
+  return expand(g:investigate_syntax_for_{a:filetype})
+endfunction
+
+function! s:SyntaxStringForFiletype(filetype)
+  let l:string = ""
+  if exists(s:CustomSyntaxStringForFiletype(a:filetype))
+    let l:string = s:CustomSyntaxKeyForFiletype(a:filetype)
+  endif
+
+  return l:string
 endfunction
 " }}}
 
