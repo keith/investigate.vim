@@ -162,7 +162,7 @@ endfunction
 " }}}
 
 " Choose file command based on custom, dash or URL ------ {{{
-function! g:SearchStringForFiletype(filetype, forDash)
+function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
   call s:LoadFolderSpecificSettings()
 
   " Has syntax for foo, get string for foo, another function
@@ -181,7 +181,12 @@ function! s:SearchStringForSyntax(syntax, forDash)
   elseif a:forDash
     return s:DashStringForFiletype(a:syntax)
   else
-    return "\"" . s:URLForFiletype(a:syntax) . "\""
+    let l:url = s:URLForFiletype(a:syntax)
+    if l:url != ""
+      let l:url = "\"" . s:URLForFiletype(a:syntax) . "\""
+    endif
+
+    return l:url
   endif
 endfunction
 " }}}

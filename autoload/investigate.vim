@@ -56,7 +56,7 @@ endfunction
 "   and the executable respectively
 "   %i at the beginning indicates leave the string as it's given
 function! s:BuildCommand()
-  let l:searchString = g:SearchStringForFiletype(&filetype, s:UseDash())
+  let l:searchString = investigate#defaults#g:SearchStringForFiletype(&filetype, s:UseDash())
   if l:searchString == ""
     return ""
   endif
@@ -78,7 +78,7 @@ endfunction
 " }}}
 
 " The actual open command for mapping ------ {{{
-function! Investigate()
+function! investigate#Investigate()
   let l:command = s:BuildCommand()
   if l:command == ""
     return
