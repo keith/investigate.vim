@@ -15,13 +15,17 @@ let s:defaultLocations = {
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=%s"],
   \ "go": ["go", "http://golang.org/search?q=%s"],
   \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=%s"],
-  \ "help": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=%s", "%i:h %s"],
   \ "objc": ["macosx", "https://developer.apple.com/search/index.php?q=%s"],
   \ "php": ["php", "http://us3.php.net/results.php?q=%s"],
   \ "python":["python", "http://docs.python.org/2/search.html?q=%s"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=%s"],
   \ "ruby": ["ruby", "http://ruby-doc.com/search.html?q=%s"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=%s", "%i:h %s"]
+\ }
+
+let s:syntaxAliases = {
+  \ "help": "vim",
+  \ "specta": "objc"
 \ }
 " }}}
 
@@ -34,34 +38,6 @@ function! s:HasKeyForFiletype(filetype)
     echomsg "No documentation for " . a:filetype
     return 0
   endif
-endfunction
-" }}}
-
-" Check for custom commands specific to the language ------ {{{
-function! s:CustomCommandVariableForFiletype(filetype)
-  return "g:investigate_command_for_" . a:filetype
-endfunction
-
-function! s:CustomCommandVariableKeyForFiletype(filetype)
-  return expand(g:investigate_command_for_{a:filetype})
-endfunction
-
-function! s:HasCustomCommandForFiletype(filetype)
-  if (has_key(s:defaultLocations, a:filetype) && len(s:defaultLocations[a:filetype]) > 2) || exists(s:CustomCommandVariableForFiletype(a:filetype))
-    return 1
-  endif
-
-  return 0
-endfunction
-
-function! s:CustomCommandForFiletype(filetype)
-  if exists(s:CustomCommandVariableForFiletype(a:filetype))
-    return s:CustomCommandVariableKeyForFiletype(a:filetype)
-  elseif s:HasKeyForFiletype(a:filetype)
-    return s:defaultLocations[a:filetype][s:customCommand]
-  endif
-
-  return ""
 endfunction
 " }}}
 
@@ -164,6 +140,7 @@ endfunction
 " Choose file command based on custom, dash or URL ------ {{{
 function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
   call s:LoadFolderSpecificSettings()
+  call s:LoadSyntaxAliasSettings()
 
   " Has syntax for foo, get string for foo, another function
   let l:type = a:filetype
@@ -191,6 +168,38 @@ function! s:SearchStringForSyntax(syntax, forDash)
 endfunction
 " }}}
 
+" Custom syntax aliases code ------ {{{
+" Load all the keys and values from the aliases array
+" if and only if they have absolutely no mappings already
+" defined anywhere
+function! s:LoadSyntaxAliasSettings()
+  for [l:ft, l:alias] in items(s:syntaxAliases)
+    if !s:HasMappingForFiletype(l:ft)
+      let l:syntaxKey = s:CustomSyntaxStringForFiletype(l:ft)
+      let l:command = "let " . l:syntaxKey . "='" . l:alias . "'"
+      execute l:command
+    endif
+  endfor
+endfunction
+
+" Check to see if a filetype has a mapping defined anywhere at all
+function! s:HasMappingForFiletype(filetype)
+  if exists(s:CustomSyntaxStringForFiletype(a:filetype))
+    return 1
+  elseif exists(s:CustomCommandStringForFiletype(a:filetype))
+    return 1
+  elseif exists(s:CustomDashStringForFiletype(a:filetype))
+    return 1
+  elseif exists(s:CustomURLStringForFiletype(a:filetype))
+    return 1
+  elseif has_key(s:defaultLocations, a:filetype)
+    return 1
+  endif
+
+  return 0
+endfunction
+" }}}
+
 " Syntax replacement configuration ------ {{{
 function! s:CustomSyntaxStringForFiletype(filetype)
   return "g:investigate_syntax_for_" . a:filetype
@@ -207,6 +216,34 @@ function! s:SyntaxStringForFiletype(filetype)
   endif
 
   return l:string
+endfunction
+" }}}
+
+" Check for custom commands specific to the language ------ {{{
+function! s:CustomCommandStringForFiletype(filetype)
+  return "g:investigate_command_for_" . a:filetype
+endfunction
+
+function! s:CustomCommandKeyForFiletype(filetype)
+  return expand(g:investigate_command_for_{a:filetype})
+endfunction
+
+function! s:HasCustomCommandForFiletype(filetype)
+  if (has_key(s:defaultLocations, a:filetype) && len(s:defaultLocations[a:filetype]) > 2) || exists(s:CustomCommandStringForFiletype(a:filetype))
+    return 1
+  endif
+
+  return 0
+endfunction
+
+function! s:CustomCommandForFiletype(filetype)
+  if exists(s:CustomCommandStringForFiletype(a:filetype))
+    return s:CustomCommandKeyForFiletype(a:filetype)
+  elseif s:HasKeyForFiletype(a:filetype)
+    return s:defaultLocations[a:filetype][s:customCommand]
+  endif
+
+  return ""
 endfunction
 " }}}
 
