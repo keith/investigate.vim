@@ -245,6 +245,14 @@ function! s:CustomCommandForFiletype(filetype)
 
   return ""
 endfunction
+
+function! s:UseCustomCommandStringForFiletype(filetype)
+  return "g:investigate_use_command_for_" . a:filetype
+endfunction
+
+function! s:UseCustomCommandKeyForFiletype(filetype)
+  return expand(g:investigate_use_command_for_{a:filetype})
+endfunction
 " }}}
 
 " Dash configuration ------ {{{
@@ -268,6 +276,22 @@ function! s:DashStringForFiletype(filetype)
     let l:string .= ":%s"
   endif
   return l:string
+endfunction
+
+function! s:CustomUseDashStringForFiletype(filetype)
+  return "g:investigate_use_dash_for_" . a:filetype
+endfunction
+
+function! s:CustomUseDashKeyForFiletype(filetype)
+  return expand(g:investigate_use_dash_for_{a:filetype})
+endfunction
+
+function! s:UseDashForFiletype(filetype)
+  if exists(s:CustomUseDashStringForFiletype(a:filetype))
+    return s:CustomUseDashKeyForFiletype(a:filetype)
+  endif
+
+  return 0
 endfunction
 " }}}
 
