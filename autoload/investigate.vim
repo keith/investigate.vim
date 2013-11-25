@@ -20,7 +20,7 @@ runtime! plugin/investigate/*.vim
 " Return the executable tool for documentation opening ------ {{{
 function! s:Executable()
   if has("mac") && executable("open")
-    return "open "
+    return "/usr/bin/open "
   elseif has("linux")
   endif
 
