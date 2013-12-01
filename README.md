@@ -22,3 +22,7 @@ until I think it is ready for a 1.0.0.
 I'd love any pull requests you can muster. Especially the addition of
 language specific documentation URLs.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Keithbsmiley/investigate.vim/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
