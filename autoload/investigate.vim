@@ -19,9 +19,21 @@ runtime! plugin/investigate/*.vim
 
 " Return the executable tool for documentation opening ------ {{{
 function! s:Executable()
-  if has("mac") && executable("open")
-    return "/usr/bin/open "
-  elseif has("linux")
+  if has("mac")
+    if executable("open")
+      return "open "
+    else
+      echomsg "Missing `open` command"
+      finish
+    endif
+  elseif has("unix")
+    if executable("xdg-open")
+      return "xdg-open "
+    elseif executable("gvfs-open")
+      return "gvfs-open "
+    elseif executable("gnome-open")
+      return "gnome-open "
+    endif
   endif
 
   echomsg "No executable found for opening URLs"

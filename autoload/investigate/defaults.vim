@@ -153,17 +153,17 @@ function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
 endfunction
 
 function! s:SearchStringForSyntax(syntax, forDash)
+  let l:command = s:UserOverrideForSyntax(a:syntax, a:forDash)
+  if l:command != ""
+    return l:command
+  endif
+
   if s:HasCustomCommandForFiletype(a:syntax)
     return s:CustomCommandForFiletype(a:syntax)
   elseif a:forDash
     return s:DashStringForFiletype(a:syntax)
   else
-    let l:url = s:URLForFiletype(a:syntax)
-    if l:url != ""
-      let l:url = "\"" . s:URLForFiletype(a:syntax) . "\""
-    endif
-
-    return l:url
+    return s:URLForFiletype(a:syntax)
   endif
 endfunction
 " }}}
@@ -197,6 +197,31 @@ function! s:HasMappingForFiletype(filetype)
   endif
 
   return 0
+endfunction
+" }}}
+
+" Command hierarchy for user defined commands and overrides ------ {{{
+function! s:UserOverrideForSyntax(syntax, forDash)
+  let l:command = ""
+  if s:UseCustomCommandForFiletype(a:syntax)
+    let l:command = s:CustomCommandForFiletype(a:syntax)
+  elseif a:forDash && s:UseDashForFiletype(a:syntax)
+    let l:command = s:DashStringForFiletype(a:syntax)
+  elseif s:UseURLForFiletype(a:syntax)
+    let l:command = s:URLForFiletype(a:syntax)
+  endif
+
+  if l:command == ""
+    if exists(s:CustomCommandStringForFiletype(a:syntax))
+      return s:CustomCommandKeyForFiletype(a:syntax)
+    elseif exists(s:CustomDashStringForFiletype(a:syntax))
+      return s:CustomDashKeyForFiletype(a:syntax)
+    elseif exists(s:CustomURLStringForFiletype(a:syntax))
+      return s:CustomURLKeyForFiletype(a:syntax)
+    endif
+  endif
+
+  return l:command
 endfunction
 " }}}
 
@@ -253,6 +278,14 @@ endfunction
 function! s:UseCustomCommandKeyForFiletype(filetype)
   return expand(g:investigate_use_command_for_{a:filetype})
 endfunction
+
+function! s:UseCustomCommandForFiletype(filetype)
+  if exists(s:UseCustomCommandStringForFiletype(a:filetype))
+    return s:UseCustomCommandKeyForFiletype(a:filetype)
+  endif
+
+  return 0
+endfunction
 " }}}
 
 " Dash configuration ------ {{{
@@ -305,13 +338,34 @@ function! s:CustomURLKeyForFiletype(filetype)
 endfunction
 
 function! s:URLForFiletype(filetype)
+  let l:url = ""
   if exists(s:CustomURLStringForFiletype(a:filetype))
-    return s:CustomURLKeyForFiletype(a:filetype)
+    let l:url = s:CustomURLKeyForFiletype(a:filetype)
   elseif s:HasKeyForFiletype(a:filetype)
-    return s:defaultLocations[a:filetype][s:searchURL]
+    let l:url = s:defaultLocations[a:filetype][s:searchURL]
   endif
 
-  return ""
+  if l:url != ""
+    let l:url = "\"" . l:url . "\""
+  endif
+
+  return l:url
+endfunction
+
+function! s:CustomUseURLStringForFiletype(filetype)
+  return "g:investigate_use_url_for_" . a:filetype
+endfunction
+
+function! s:CustomUseURLKeyForFiletype(filetype)
+  return expand(g:investigate_use_url_for_{a:filetype})
+endfunction
+
+function! s:UseURLForFiletype(filetype)
+  if exists(s:CustomUseURLStringForFiletype(a:filetype))
+    return s:CustomUseURLKeyForFiletype(a:filetype)
+  endif
+
+  return 0
 endfunction
 " }}}
 
