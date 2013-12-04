@@ -205,7 +205,7 @@ function! s:UserOverrideForSyntax(syntax, forDash)
   let l:command = ""
   if s:UseCustomCommandForFiletype(a:syntax)
     let l:command = s:CustomCommandForFiletype(a:syntax)
-  elseif a:forDash && s:UseDashForFiletype(a:syntax)
+  elseif has("mac") && s:UseDashForFiletype(a:syntax)
     let l:command = s:DashStringForFiletype(a:syntax)
   elseif s:UseURLForFiletype(a:syntax)
     let l:command = s:URLForFiletype(a:syntax)
@@ -306,7 +306,7 @@ function! s:DashStringForFiletype(filetype)
   endif
 
   if l:string != ""
-    let l:string .= ":%s"
+    let l:string = "dash://" . l:string . ":%s"
   endif
   return l:string
 endfunction

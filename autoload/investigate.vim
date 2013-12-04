@@ -51,21 +51,9 @@ function! s:UseDash()
 endfunction
 " }}}
 
-" Another string to be added after the executable before ------ {{{
-"   the search string is appended
-function! s:IntermediateCommand()
-  if s:UseDash()
-    return "dash://"
-  endif
-
-  return ""
-endfunction
-" }}}
-
 " Setup the commanded based on some settings ------ {{{
 "   swap occurances of %s with the current word
-"   swap out %c or %e with the intermediate command
-"   and the executable respectively
+"   swap out %e with the executable respectively
 "   %i at the beginning indicates leave the string as it's given
 function! s:BuildCommand()
   let l:searchString = investigate#defaults#g:SearchStringForFiletype(&filetype, s:UseDash())
@@ -74,13 +62,9 @@ function! s:BuildCommand()
   endif
 
   let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "g")
-  let l:command = s:Executable() . s:IntermediateCommand() . l:fullString
+  let l:command = s:Executable() . l:fullString
 
-  if l:fullString =~ "%c" && l:fullString =~ "%e"
-    let l:command = substitute(substitute(l:fullString, "%c", s:IntermediateCommand(), "g"), "%e", s:Executable(), "g")
-  elseif l:fullString =~ "%c"
-    let l:command = s:Executable() . substitute(l:fullString, "%c", s:IntermediateCommand(), "g")
-  elseif l:fullString =~ "%e"
+  if l:fullString =~ "%e"
     let l:command = substitute(l:fullString, "%e", s:Executable(), "g")
   elseif strpart(l:fullString, 0, 2) == "%i"
     let l:command = substitute(l:fullString, "%i", "", "g")
