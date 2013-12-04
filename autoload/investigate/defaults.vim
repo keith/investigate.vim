@@ -4,6 +4,10 @@ if exists("g:investigate_loaded_defaults")
 endif
 let g:investigate_loaded_defaults = 1
 
+if !exists("g:investigate_local_filename")
+  let g:investigate_local_filename=".investigaterc"
+endif
+
 let s:dashString    = 0
 let s:searchURL     = 1
 let s:customCommand = 2
@@ -50,7 +54,7 @@ function! s:LoadFolderSpecificSettings()
   let g:investigate_loaded_local = 1
 
   " Get the local file path and make sure it exists
-  let l:filename = getcwd() . "/.investigaterc"
+  let l:filename = getcwd() . "/" . g:investigate_local_filename
   if glob(l:filename) == ""
     return
   endif
@@ -67,6 +71,12 @@ function! s:ParseRCFileContents(contents)
   let l:commands = []
   let l:identifier = ""
   for l:line in a:contents
+    " Ignore lines starting with # for comments
+    if match(l:line, "^\\s*#") >= 0
+      continue
+    endif
+    echomsg l:line
+
     " Attempt to get the identifier string from the line
     let l:identifierString = s:IdentifierFromString(l:line)
 
@@ -101,7 +111,8 @@ function! s:ReadAndCleanFile(filepath)
   let l:final = []
   let l:contents = readfile(a:filepath)
   for l:line in l:contents
-    let l:trimmed = substitute(l:line, "\\s", "", "g")
+    let l:trimmed = substitute(l:line, "^\\s*", "", "g")
+    let l:trimmed = substitute(l:trimmed, "\\s*$", "", "g")
     if l:trimmed != ""
       call add(l:final, l:trimmed)
     endif
@@ -122,7 +133,9 @@ function! s:MatchForString(string)
   endif
 
   let l:parts = split(a:string, "\\s*=\\s*")
-  return l:parts[0] . "='" . l:parts[1] . "'"
+  let l:value = substitute(l:parts[1], "^[\"']*", "", "g")
+  let l:value = substitute(l:value, "[\"']*$", "", "g")
+  return l:parts[0] . "='" . l:value . "'"
 endfunction
 
 " Get the function identifier for the passed string
@@ -175,8 +188,8 @@ endfunction
 function! s:LoadSyntaxAliasSettings()
   for [l:ft, l:alias] in items(s:syntaxAliases)
     if !s:HasMappingForFiletype(l:ft)
-      let l:syntaxKey = s:CustomSyntaxStringForFiletype(l:ft)
-      let l:command = "let " . l:syntaxKey . "='" . l:alias . "'"
+      let l:syntaxkey = s:CustomSyntaxStringForFiletype(l:ft)
+      let l:command = "let " . l:syntaxkey . "='" . l:alias . "'"
       execute l:command
     endif
   endfor
@@ -213,11 +226,11 @@ function! s:UserOverrideForSyntax(syntax, forDash)
 
   if l:command == ""
     if exists(s:CustomCommandStringForFiletype(a:syntax))
-      return s:CustomCommandKeyForFiletype(a:syntax)
+      return eval(s:CustomCommandStringForFiletype(a:syntax))
     elseif exists(s:CustomDashStringForFiletype(a:syntax))
-      return s:CustomDashKeyForFiletype(a:syntax)
+      return eval(s:CustomDashStringForFiletype(a:syntax))
     elseif exists(s:CustomURLStringForFiletype(a:syntax))
-      return s:CustomURLKeyForFiletype(a:syntax)
+      return eval(s:CustomURLStringForFiletype(a:syntax))
     endif
   endif
 
@@ -230,14 +243,10 @@ function! s:CustomSyntaxStringForFiletype(filetype)
   return "g:investigate_syntax_for_" . a:filetype
 endfunction
 
-function s:CustomSyntaxKeyForFiletype(filetype)
-  return expand(g:investigate_syntax_for_{a:filetype})
-endfunction
-
 function! s:SyntaxStringForFiletype(filetype)
   let l:string = ""
   if exists(s:CustomSyntaxStringForFiletype(a:filetype))
-    let l:string = s:CustomSyntaxKeyForFiletype(a:filetype)
+    let l:string = eval(s:CustomSyntaxStringForFiletype(a:filetype))
   endif
 
   return l:string
@@ -247,10 +256,6 @@ endfunction
 " Check for custom commands specific to the language ------ {{{
 function! s:CustomCommandStringForFiletype(filetype)
   return "g:investigate_command_for_" . a:filetype
-endfunction
-
-function! s:CustomCommandKeyForFiletype(filetype)
-  return expand(g:investigate_command_for_{a:filetype})
 endfunction
 
 function! s:HasCustomCommandForFiletype(filetype)
@@ -263,7 +268,7 @@ endfunction
 
 function! s:CustomCommandForFiletype(filetype)
   if exists(s:CustomCommandStringForFiletype(a:filetype))
-    return s:CustomCommandKeyForFiletype(a:filetype)
+    return eval(s:CustomCommandStringForFiletype(a:filetype))
   elseif s:HasKeyForFiletype(a:filetype)
     return s:defaultLocations[a:filetype][s:customCommand]
   endif
@@ -275,13 +280,9 @@ function! s:UseCustomCommandStringForFiletype(filetype)
   return "g:investigate_use_command_for_" . a:filetype
 endfunction
 
-function! s:UseCustomCommandKeyForFiletype(filetype)
-  return expand(g:investigate_use_command_for_{a:filetype})
-endfunction
-
 function! s:UseCustomCommandForFiletype(filetype)
   if exists(s:UseCustomCommandStringForFiletype(a:filetype))
-    return s:UseCustomCommandKeyForFiletype(a:filetype)
+    return eval(s:UseCustomCommandStringForFiletype(a:filetype))
   endif
 
   return 0
@@ -293,14 +294,10 @@ function! s:CustomDashStringForFiletype(filetype)
   return "g:investigate_dash_for_" . a:filetype
 endfunction
 
-function! s:CustomDashKeyForFiletype(filetype)
-  return expand(g:investigate_dash_for_{a:filetype})
-endfunction
-
 function! s:DashStringForFiletype(filetype)
   let l:string = ""
   if exists(s:CustomDashStringForFiletype(a:filetype))
-    let l:string = s:CustomDashKeyForFiletype(a:filetype)
+    let l:string = eval(s:CustomDashStringForFiletype(a:filetype))
   elseif s:HasKeyForFiletype(a:filetype)
     let l:string = s:defaultLocations[a:filetype][s:dashString]
   endif
@@ -315,13 +312,9 @@ function! s:CustomUseDashStringForFiletype(filetype)
   return "g:investigate_use_dash_for_" . a:filetype
 endfunction
 
-function! s:CustomUseDashKeyForFiletype(filetype)
-  return expand(g:investigate_use_dash_for_{a:filetype})
-endfunction
-
 function! s:UseDashForFiletype(filetype)
   if exists(s:CustomUseDashStringForFiletype(a:filetype))
-    return s:CustomUseDashKeyForFiletype(a:filetype)
+    return eval(s:CustomUseDashStringForFiletype(a:filetype))
   endif
 
   return 0
@@ -333,14 +326,10 @@ function! s:CustomURLStringForFiletype(filetype)
   return "g:investigate_url_for_" . a:filetype
 endfunction
 
-function! s:CustomURLKeyForFiletype(filetype)
-  return expand(g:investigate_url_for_{a:filetype})
-endfunction
-
 function! s:URLForFiletype(filetype)
   let l:url = ""
   if exists(s:CustomURLStringForFiletype(a:filetype))
-    let l:url = s:CustomURLKeyForFiletype(a:filetype)
+    let l:url = eval(s:CustomURLStringForFiletype(a:filetype))
   elseif s:HasKeyForFiletype(a:filetype)
     let l:url = s:defaultLocations[a:filetype][s:searchURL]
   endif
@@ -356,13 +345,9 @@ function! s:CustomUseURLStringForFiletype(filetype)
   return "g:investigate_use_url_for_" . a:filetype
 endfunction
 
-function! s:CustomUseURLKeyForFiletype(filetype)
-  return expand(g:investigate_use_url_for_{a:filetype})
-endfunction
-
 function! s:UseURLForFiletype(filetype)
   if exists(s:CustomUseURLStringForFiletype(a:filetype))
-    return s:CustomUseURLKeyForFiletype(a:filetype)
+    return eval(s:CustomUseURLStringForFiletype(a:filetype))
   endif
 
   return 0
