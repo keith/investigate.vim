@@ -9,7 +9,7 @@ or with [Dash](http://kapeli.com/dash) on OS X.
 Example mapping:
 
 ```
-nnoremap <S-k> :call Investigate()<cr>
+nnoremap K :call investigate#Investigate()<cr>
 ```
 
 I plan to allow tons of options for configuration for changing URLs,

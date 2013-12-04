@@ -22,6 +22,9 @@ function! s:Executable()
   if has("mac")
     if executable("open")
       return "open "
+    elseif executable("/usr/bin/open")
+      " Return full path if Vim's path isn't setup correctly
+      return "/usr/bin/open "
     else
       echomsg "Missing `open` command"
       finish
@@ -34,6 +37,10 @@ function! s:Executable()
     elseif executable("gnome-open")
       return "gnome-open "
     endif
+  elseif has("win32unix")
+    return "cygstart "
+  elseif has("win32")
+    return "start "
   endif
 
   echomsg "No executable found for opening URLs"
