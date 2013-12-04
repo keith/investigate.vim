@@ -45,7 +45,23 @@ global vim variables or using a '.investigaterc' file in the root of the
 directory vim is running from.
 
 ------------------------------------------------------------------------------
-3.1 Configuration File                                 *investigate-conf-file*
+3.1 Variables                                          *investigate-variables*
+
+There are quite a few different options that can be specified to change the
+default settings, or add support for other languages. If you do want to add
+other language support to investigate or change the default settings please
+submit a pull request to the Github repository.
+
+                                         *'investigate_syntax_for_<filetype>'*
+This variable by filetype allows you to alias one filetype to another. An
+example being help which is mapped to vim by default. This is evaluated
+before any other mappings. This means if you override the URL settings for
+a filetypeA and then alias filetypeB to filetypeA, filetypeB will use the
+overridden URL. Example:
+    let g:investigate_syntax_for_rspec=ruby
+
+------------------------------------------------------------------------------
+3.2 Configuration File                                 *investigate-conf-file*
 
 In the root of any directory a file can be created. This will
 redefine the behavior of investigate when it's being run from that directory.
@@ -63,6 +79,12 @@ Examples:
     # Open ruby files as rails
     [syntax]
     ruby=rails
+
+    # Custom command for vim
+    # This is the default command for vim
+    # This syntax is explained in |investigate-variables|
+    [command]
+    vim=%i:h %s
 
 
   vim:tw=78:et:ft=help:norl:isk+=-:ts=4:sw=4:sts=4
