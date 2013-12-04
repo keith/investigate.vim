@@ -1,0 +1,68 @@
+*investigate.txt*                                        Last change: 2013 Dec
+
+           ____                     __  _             __
+          /  _/___ _   _____  _____/ /_(_)___ _____ _/ /____
+          / // __ \ | / / _ \/ ___/ __/ / __ `/ __ `/ __/ _ \
+        _/ // / / / |/ /  __(__  ) /_/ / /_/ / /_/ / /_/  __/
+       /___/_/ /_/|___/\___/____/\__/_/\__, /\__,_/\__/\___/
+                                      /____/
+
+==============================================================================
+CONTENTS                                                *investigate-contents*
+
+    1. Intro......................................|investigate-intro|
+    2. Functionality..............................|investigate-functionality|
+    3. Configuration Options......................|investigate-configuration|
+        3.1 Variables ............................|investigate-variables|
+        3.2 Conf File.............................|investigate-conf-file|
+    4. About......................................|investigate-about|
+    5. License....................................|investigate-license|
+    6. Thanks.....................................|investigate-thanks|
+
+
+==============================================================================
+1. Intro                                                   *investigate-intro*
+
+Investigate is a plugin for viewing language documentation for the word under
+the cursor.
+
+
+==============================================================================
+2. Functionality                                   *investigate-functionality*
+
+Documentation can be viewed a few different ways. Using a custom command for a
+file type that allows arbitrary commands to be run such as :h for vim. Using
+Dash.app on Mac OS X. Or on the web. You can override any of the default
+settings to make documentation open however you'd like using these methods.
+
+
+==============================================================================
+3. Configuration                                   *investigate-configuration*
+
+Investigate provides tons of configurations to allow all language defaults to
+be overridden on a global and per project basis. This can be done by setting
+global vim variables or using a '.investigaterc' file in the root of the
+directory vim is running from.
+
+------------------------------------------------------------------------------
+3.1 Configuration File                                 *investigate-conf-file*
+
+In the root of any directory a file can be created. This will
+redefine the behavior of investigate when it's being run from that directory.
+A simple example of this is a Rails project where you want to open the
+documentation for Ruby files in the Rails API reference rather than Ruby's.
+Lines starting with # are considered comments.
+
+                                                *'investigate_local_filename'*
+Default: ".investigaterc"
+You can change the default name of this file:
+    let g:investigate_local_filename=".invrc"
+
+Examples:
+
+    # Open ruby files as rails
+    [syntax]
+    ruby=rails
+
+
+  vim:tw=78:et:ft=help:norl:isk+=-:ts=4:sw=4:sts=4
