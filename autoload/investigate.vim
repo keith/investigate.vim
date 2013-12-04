@@ -1,7 +1,7 @@
 " Vim Plugin for viewing documentation
 " Maintainer: Keith Smiley <keithbsmiley@gmail.com>
-" Last Change: 2013 Nov 11
-" Version: 0.1.0
+" Last Change: 2013 Dec
+" Version: 0.9.1
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
@@ -68,13 +68,13 @@ function! s:BuildCommand()
     return ""
   endif
 
-  let l:fullString = substitute(l:searchString, "%s", expand("<cword>"), "g")
-  let l:command = s:Executable() . l:fullString
+  let l:fullstring = substitute(l:searchString, "%s", expand("<cword>"), "g")
+  let l:command = s:Executable() . l:fullstring
 
-  if l:fullString =~ "%e"
-    let l:command = substitute(l:fullString, "%e", s:Executable(), "g")
-  elseif strpart(l:fullString, 0, 2) == "%i"
-    let l:command = substitute(l:fullString, "%i", "", "g")
+  if l:fullstring =~ "%e"
+    let l:command = substitute(l:fullstring, "%e", s:Executable(), "g")
+  elseif strpart(l:fullstring, 0, 2) == "%i"
+    let l:command = substitute(l:fullstring, "%i", "", "g")
   endif
   return l:command
 endfunction
