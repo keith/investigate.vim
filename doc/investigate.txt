@@ -10,14 +10,15 @@
 ==============================================================================
 CONTENTS                                                *investigate-contents*
 
-    1. Intro......................................|investigate-intro|
-    2. Functionality..............................|investigate-functionality|
-    3. Configuration Options......................|investigate-configuration|
-        3.1 Variables ............................|investigate-variables|
-        3.2 Conf File.............................|investigate-conf-file|
-    4. About......................................|investigate-about|
-    5. License....................................|investigate-license|
-    6. Thanks.....................................|investigate-thanks|
+    1. Intro...................................|investigate-intro|
+    2. Functionality...........................|investigate-functionality|
+    3. Configuration Options...................|investigate-configuration|
+        3.1 Variables..........................|investigate-variables|
+        3.2 Conf File..........................|investigate-conf-file|
+        3.3 Writing Commands...................|investigate-writing-commands|
+    4. About...................................|investigate-about|
+    5. License.................................|investigate-license|
+    6. Thanks..................................|investigate-thanks|
 
 
 ==============================================================================
@@ -50,15 +51,80 @@ directory vim is running from.
 There are quite a few different options that can be specified to change the
 default settings, or add support for other languages. If you do want to add
 other language support to investigate or change the default settings please
-submit a pull request to the Github repository.
+submit a pull request to the Github repository. If at anytime there are no
+commands for the given filetype an error will be provided shown in the
+command line. Please submit pull requests for any languages you would like
+to see added to investigate.
 
-                                         *'investigate_syntax_for_<filetype>'*
-This variable by filetype allows you to alias one filetype to another. An
-example being help which is mapped to vim by default. This is evaluated
-before any other mappings. This means if you override the URL settings for
-a filetypeA and then alias filetypeB to filetypeA, filetypeB will use the
-overridden URL. Example:
+                                                        *investigate_use_dash*
+Default: 0
+Set this variable to automatically open documentation in Dash.app when
+you're on Mac OS X. If you're not on Mac OS X and this variable is set it
+is ignored.
+    let g:investigate_use_dash=1
+
+Download Dash for OS X from http://kapeli.com/dash
+
+                                      *investigate_use_command_for_<filetype>*
+Tell investigate to use the custom command for a specific filetype. Since,
+behind the scenes the custom command is the highest priority of command to
+be run, you typically shouldn't need this. If you set this it will
+automatically use a custom command for the filetype. It will first attempt
+to run the command defined by |investigate_command_for_<filetype>| if there
+is one, otherwise it will attempt to run the predefined custom command.
+Setting this any of these to 0 will be useless. But you know, if you want..
+    let g:investigate_use_command_for_ruby=1
+
+                                         *investigate_use_dash_for_<filetype>*
+Tell investigate to prioritize opening documentation in Dash.app over using
+a custom command. You would want to use this if, for example, you wanted to
+open Vim's documentation in Dash over opening it with :h. This will default
+to using the Dash keyword defined by |investigate_dash_for_<filetype>| if
+there is one, otherwise it will use the predefined Dash keyword.
+    let g:investigate_use_dash_for_vim=1
+
+                                          *investigate_use_url_for_<filetype>*
+Tell investigate to prioritize the URL documentation viewer for the filetype.
+You would use this if you wanted to make investigate show the documentation
+on the web over showing a custom command or the dash page. For example if
+you wanted to open most languages in Dash but wanted to open Rails
+documentation in their awesome online API viewer you could set that up.
+    let g:investigate_use_url_for_rails=1
+
+
+                                           *investigate_syntax_for_<filetype>*
+This variable by filetype allows you to alias one filetype to another. This
+is evaluated before any other mappings. This means if you override the URL
+settings for filetypeA and then alias filetypeB to filetypeA, filetypeB will
+use the overridden URL. An real example being help which is mapped to vim by
+default. Example:
     let g:investigate_syntax_for_rspec=ruby
+
+                                          *investigate_command_for_<filetype>*
+This variable allows you to set specific commands for a specific filetype.
+See |investigate-writing-commands| for the setup on how to write the commands
+with the correct replacements. This overrides the current set custom command
+or it sets another command. I could imagine you attempting to set ri as the
+default command for Ruby syntaxes. I haven't thought of a way to do that but
+if you do I'd love to know about it! Here's what it would look like if the
+default for vim hadn't already been set up.
+    let g:investigate_command_for_vim=%i:h %s
+
+                                             *investigate_dash_for_<filetype>*
+This variable allows you to set specific Dash keywords for filetypes. You
+would probably want to use this if you set up search profiles or changed
+then names of any the default docsets in Dash to something more useful. You
+don't need to add the : at the ed of the keyword. This remaps all ruby files
+to open the rails documentation:
+    let g:investigate_dash_for_ruby=rails
+
+                                              *investigate_url_for_<filetype>*
+This variable allows you to set the URL for a filetype to search through. See
+|investigate-writing-commands| to see the exact syntax mapping a URL. You'd
+want to do this if you don't agree with the site I picked to search for the
+specific filetype. If you have a better one I'd love to hear about it via a
+pull request. This is the default ruby URL but if you were redefining it:
+    let g:investigate_url_for_ruby="http://ruby-doc.com/search.html?q=%s"
 
 ------------------------------------------------------------------------------
 3.2 Configuration File                                 *investigate-conf-file*
@@ -67,7 +133,9 @@ In the root of any directory a file can be created. This will
 redefine the behavior of investigate when it's being run from that directory.
 A simple example of this is a Rails project where you want to open the
 documentation for Ruby files in the Rails API reference rather than Ruby's.
-Lines starting with # are considered comments.
+Lines starting with # are considered comments. In brackets you can put any
+keyword that is an investigate variable. The current keywords are syntax,
+command, dash, and url.
 
                                                 *'investigate_local_filename'*
 Default: ".investigaterc"
@@ -82,9 +150,13 @@ Examples:
 
     # Custom command for vim
     # This is the default command for vim
-    # This syntax is explained in |investigate-variables|
+    # This is explained in |investigate-variables|
     [command]
     vim=%i:h %s
+
+
+------------------------------------------------------------------------------
+3.3 Writing Commands                            *investigate-writing-commands*
 
 
   vim:tw=78:et:ft=help:norl:isk+=-:ts=4:sw=4:sts=4
