@@ -139,10 +139,15 @@ command, dash, and url.
 
                                                 *'investigate_local_filename'*
 Default: ".investigaterc"
-You can change the default name of this file:
+You can change the default name of the configuration file with this variable.
+If you don't want the file to be hidden you can leave off the preceding dot.
     let g:investigate_local_filename=".invrc"
 
-Examples:
+The contents of this file are expanded to look like:
+    let g:investigate_<identifier>_for_<left>=<right>
+Where <identifier> is the last word wrapped by brackets, <left> and <right>
+are what's on the left and right side of the equals sign respectively.
+Example:
 
     # Open ruby files as rails
     [syntax]
@@ -150,9 +155,14 @@ Examples:
 
     # Custom command for vim
     # This is the default command for vim
-    # This is explained in |investigate-variables|
+    # This syntax is explained in |investigate-writing-commands|
     [command]
     vim=%i:h %s
+
+    # Reassigns the dash identifier for a filetype
+    [dash]
+    html=web
+    css=web
 
 
 ------------------------------------------------------------------------------
