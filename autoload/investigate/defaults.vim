@@ -75,7 +75,6 @@ function! s:ParseRCFileContents(contents)
     if match(l:line, "^\\s*#") >= 0
       continue
     endif
-    echomsg l:line
 
     " Attempt to get the identifier string from the line
     let l:identifierString = s:IdentifierFromString(l:line)
@@ -127,15 +126,21 @@ endfunction
 " ruby = rails = cpp -> ""
 " ruby -> ""
 function! s:MatchForString(string)
-  " Make sure there is only a single = in the string
-  if count(split(a:string, "\\zs"), "=") != 1
+  " Return an empty string unless there is at least 1 equals sign
+  if match(a:string, '=') < 1
     return ""
   endif
 
-  let l:parts = split(a:string, "\\s*=\\s*")
-  let l:value = substitute(l:parts[1], "^[\"']*", "", "g")
-  let l:value = substitute(l:value, "[\"']*$", "", "g")
-  return l:parts[0] . "='" . l:value . "'"
+  " String the spaces from around the first equals sign
+  let l:trim  = substitute(a:string, '\M\s\*=\s\*', '=', '')
+  let l:idx   = match(l:trim, '=')
+
+  let l:left  = strpart(l:trim, 0, l:idx)
+  let l:right = strpart(l:trim, l:idx + 1)
+  " Remove all trailing and leading quote marks
+  let l:right = substitute(l:right, "\\v^['\"]*", '', 'g')
+  let l:right = substitute(l:right, "\\v['\"]*$", '', 'g')
+  return l:left . "='" . l:right . "'"
 endfunction
 
 " Get the function identifier for the passed string
@@ -226,11 +231,11 @@ function! s:UserOverrideForSyntax(syntax, forDash)
 
   if l:command == ""
     if exists(s:CustomCommandStringForFiletype(a:syntax))
-      return eval(s:CustomCommandStringForFiletype(a:syntax))
+      let l:command = s:CustomCommandForFiletype(a:syntax)
     elseif exists(s:CustomDashStringForFiletype(a:syntax))
-      return eval(s:CustomDashStringForFiletype(a:syntax))
+      let l:command = s:DashStringForFiletype(a:syntax)
     elseif exists(s:CustomURLStringForFiletype(a:syntax))
-      return eval(s:CustomURLStringForFiletype(a:syntax))
+      let l:command = s:URLForFiletype(a:syntax)
     endif
   endif
 
