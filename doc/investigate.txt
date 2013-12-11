@@ -29,6 +29,9 @@ CONTENTS                                                *investigate-contents*
 Investigate is a plugin for viewing language documentation for the word under
 the cursor.
 
+Map it with something like:
+    nnoremap K :call investigate#Investigate()<cr>
+
 
 ==============================================================================
 
