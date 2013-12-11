@@ -8,6 +8,7 @@
                                       /____/
 
 ==============================================================================
+
 CONTENTS                                                *investigate-contents*
 
     1. Intro...................................|investigate-intro|
@@ -22,6 +23,7 @@ CONTENTS                                                *investigate-contents*
 
 
 ==============================================================================
+
 1. Intro                                                   *investigate-intro*
 
 Investigate is a plugin for viewing language documentation for the word under
@@ -29,6 +31,7 @@ the cursor.
 
 
 ==============================================================================
+
 2. Functionality                                   *investigate-functionality*
 
 Documentation can be viewed a few different ways. Using a custom command for a
@@ -38,6 +41,7 @@ settings to make documentation open however you'd like using these methods.
 
 
 ==============================================================================
+
 3. Configuration                                   *investigate-configuration*
 
 Investigate provides tons of configurations to allow all language defaults to
@@ -46,6 +50,7 @@ global vim variables or using a '.investigaterc' file in the root of the
 directory vim is running from.
 
 ------------------------------------------------------------------------------
+
 3.1 Variables                                          *investigate-variables*
 
 There are quite a few different options that can be specified to change the
@@ -108,7 +113,7 @@ or it sets another command. I could imagine you attempting to set ri as the
 default command for Ruby syntaxes. I haven't thought of a way to do that but
 if you do I'd love to know about it! Here's what it would look like if the
 default for vim hadn't already been set up.
-    let g:investigate_command_for_vim=%i:h %s
+    let g:investigate_command_for_vim=^i:h ^s
 
                                              *investigate_dash_for_<filetype>*
 This variable allows you to set specific Dash keywords for filetypes. You
@@ -124,9 +129,10 @@ This variable allows you to set the URL for a filetype to search through. See
 want to do this if you don't agree with the site I picked to search for the
 specific filetype. If you have a better one I'd love to hear about it via a
 pull request. This is the default ruby URL but if you were redefining it:
-    let g:investigate_url_for_ruby="http://ruby-doc.com/search.html?q=%s"
+    let g:investigate_url_for_ruby="http://ruby-doc.com/search.html?q=^s"
 
 ------------------------------------------------------------------------------
+
 3.2 Configuration File                                 *investigate-conf-file*
 
 In the root of any directory a file can be created. This will
@@ -137,7 +143,7 @@ Lines starting with # are considered comments. In brackets you can put any
 keyword that is an investigate variable. The current keywords are syntax,
 command, dash, and url.
 
-                                                *'investigate_local_filename'*
+                                                  *investigate_local_filename*
 Default: ".invrc"
 You can change the default name of the configuration file with this variable.
 If you don't want the file to be hidden you can leave off the preceding dot.
@@ -157,7 +163,7 @@ Example:
     # This is the default command for vim
     # This syntax is explained in |investigate-writing-commands|
     [command]
-    vim=%i:h %s
+    vim=^i:h ^s
 
     # Reassigns the dash identifier for a filetype
     [dash]
@@ -166,11 +172,80 @@ Example:
 
     # Default to Python 3 documentation
     [url]
-    python="http://docs.python.org/3/search.html?q=%s"
+    python="http://docs.python.org/3/search.html?q=^s"
 
 
 ------------------------------------------------------------------------------
+
 3.3 Writing Commands                            *investigate-writing-commands*
 
+Custom commands have 3 special identifiers for you to use.
+
+    ^s - This is replaced with the search string from under the cursor
+    ^e - This is replaced with the executable for the current system
+    ^i - This tells investigate not to prepend the executable
+
+If your command needs to use the same executable investigate uses to open
+URLs or Dash on OS X, you can leave the command without ^e and it will be
+prepended automatically. If your command ends up starting with the executable
+it will be run in vim with the 'system()' command. Otherwise it will be run as
+is. So for example, if you wanted to run Ruby documentation through the ri
+command line tool, you could do something like "^i!ri ^s" which, if activated
+over the word "strip", would give call "!ri strip" to be executed by vim. If you
+didn't use ^i at the beginning it would give you "open !ri strip" (on OS X)
+which probably wouldn't make sense. All occurrences of each of these
+identifiers are replaced globally. I chose "^" since it is not a valid
+character in a URL where something else like %s could occur naturally and mess
+up investigate.
+
+
+==============================================================================
+
+4. About                                                   *investigate-about*
+
+Investigate was created and is maintained by Keith Smiley
+<keithbsmiley@gmail.com> at https://github.com/Keithbsmiley/investigate.vim
+Any feature requests or bug reports should be submitted on the Github
+repository.
+
+
+==============================================================================
+
+5. License                                               *investigate-license*
+
+Investigate is licensed under MIT. The full text (as found in LICENSE):
+
+Copyright (c) 2013 Keith Smiley (http://keith.so)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the 'Software'), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+==============================================================================
+
+6. Thanks                                                 *investigate-thanks*
+
+Some awesome people and projects that helped develop this plugin:
+
+Steve Losh - http://learnvimscriptthehardway.stevelosh.com/
+Syntastic  - https://github.com/scrooloose/syntastic
+Tim Pope   - http://tpo.pe/
+
+
+==============================================================================
 
   vim:tw=78:et:ft=help:norl:isk+=-:ts=4:sw=4:sts=4
