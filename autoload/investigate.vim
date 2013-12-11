@@ -68,13 +68,13 @@ function! s:BuildCommand()
     return ""
   endif
 
-  let l:fullstring = substitute(l:searchString, "^s", expand("<cword>"), "g")
+  let l:fullstring = substitute(l:searchString, '\M\^s', expand("<cword>"), "g")
   let l:command = s:Executable() . l:fullstring
 
-  if l:fullstring =~ "^e"
-    let l:command = substitute(l:fullstring, "^e", s:Executable(), "g")
-  elseif strpart(l:fullstring, 0, 2) == "^i"
-    let l:command = substitute(l:fullstring, "^i", "", "g")
+  if l:fullstring =~ '\M\^e'
+    let l:command = substitute(l:fullstring, '\M\^e', s:Executable(), "g")
+  elseif strpart(l:fullstring, 0, 2) == '^i'
+    let l:command = substitute(l:fullstring, '\M\^i', "", "g")
   endif
   return l:command
 endfunction
@@ -87,6 +87,7 @@ function! investigate#Investigate()
     return
   endif
 
+  echomsg l:command
   if l:command =~ s:Executable()
     execute system(l:command)
   else
