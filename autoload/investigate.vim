@@ -59,22 +59,22 @@ endfunction
 " }}}
 
 " Setup the commanded based on some settings ------ {{{
-"   swap occurances of %s with the current word
-"   swap out %e with the executable respectively
-"   %i at the beginning indicates leave the string as it's given
+"   swap occurances of ^s with the current word
+"   swap out ^e with the executable
+"   ^i at the beginning indicates leave the string as is
 function! s:BuildCommand()
   let l:searchString = investigate#defaults#g:SearchStringForFiletype(&filetype, s:UseDash())
   if l:searchString == ""
     return ""
   endif
 
-  let l:fullstring = substitute(l:searchString, "%s", expand("<cword>"), "g")
+  let l:fullstring = substitute(l:searchString, "^s", expand("<cword>"), "g")
   let l:command = s:Executable() . l:fullstring
 
-  if l:fullstring =~ "%e"
-    let l:command = substitute(l:fullstring, "%e", s:Executable(), "g")
-  elseif strpart(l:fullstring, 0, 2) == "%i"
-    let l:command = substitute(l:fullstring, "%i", "", "g")
+  if l:fullstring =~ "^e"
+    let l:command = substitute(l:fullstring, "^e", s:Executable(), "g")
+  elseif strpart(l:fullstring, 0, 2) == "^i"
+    let l:command = substitute(l:fullstring, "^i", "", "g")
   endif
   return l:command
 endfunction
