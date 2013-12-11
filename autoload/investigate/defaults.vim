@@ -5,7 +5,7 @@ endif
 let g:investigate_loaded_defaults = 1
 
 if !exists("g:investigate_local_filename")
-  let g:investigate_local_filename=".investigaterc"
+  let g:investigate_local_filename=".invrc"
 endif
 
 let s:dashString    = 0
