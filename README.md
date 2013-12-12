@@ -40,7 +40,7 @@ If you want to use something else, like a URL for a single type you'd
 want to use this which will override the global Dash setting:
 
 ```
-let g:investiate_use_url_for_ruby=1
+let g:investigate_use_url_for_ruby=1
 ```
 
 If you use a different keyword in Dash for a given language you can
