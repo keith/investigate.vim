@@ -1,8 +1,8 @@
 # investigate.vim
 
 A plugin for looking documentation on the word under the cursor.
-You can choose to open it in a browser with
-[Dash](http://kapeli.com/dash) on OS X or with an arbitary
+You can choose to open it in a browser, with
+[Dash](http://kapeli.com/dash) on OS X, or with an arbitary
 shell command.
 
 ## Setup
@@ -23,7 +23,7 @@ basic options.
 
 ### Dash
 
-If you're on OS X and want to open everything in Dash you need to set:
+If you want to open everything in Dash you need to set:
 
 ```
 let g:investigate_use_dash=1
@@ -37,20 +37,11 @@ let g:investigate_use_dash_for_ruby=1
 ```
 
 If you want to use something else, like a URL for a single type you'd
-want to use this:
+want to use this which will override the global Dash setting:
 
 ```
 let g:investiate_use_url_for_ruby=1
 ```
-
-Which will override the global Dash setting. If you want to override the
-keyword for a filetype in Dash you can do it with:
-
-```
-let g:investigate_syntax_for_rspec=ruby
-```
-
-Which will open all files with the filetype rspec with `ruby:` in Dash.
 
 If you use a different keyword in Dash for a given language you can
 set it by using:
@@ -78,7 +69,7 @@ files.
 ### Custom Commands
 
 You can also open documentation with arbitrary shell commands. See
-|investigate-writing-commands| in the documentation for more info.
+`investigate-writing-commands` in the documentation for more info.
 
 
 ### Project specific settings
@@ -94,9 +85,14 @@ that the file would look something like this:
 ruby=rails
 ```
 
-This works like one of the above variables that entirely changes Ruby
-files to open in the Rails documentation. See |investigate-conf-file|
-for more information.
+This will set a syntax variable:
+
+```
+let g:investigate_syntax_for_ruby=rails
+```
+
+Which entirely changes Ruby files to open in the Rails documentation.
+See `investigate-conf-file` for more information.
 
 
 ## Installation
