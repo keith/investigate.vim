@@ -1,6 +1,6 @@
-name: investigate.vim
+name: Investigate.vim
 markdown: rdiscount
-exclude: ["Gemfile*"]
+exclude: ["Gemfile*", "README.md", "LICENSE"]
 
 # Setup default github pages settings
 pygments: true
