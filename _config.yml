@@ -1,0 +1,10 @@
+name: investigate.vim
+markdown: rdiscount
+exclude: ["Gemfile*"]
+
+# Setup default github pages settings
+pygments: true
+lsi: false
+source: .
+safe: true
+
