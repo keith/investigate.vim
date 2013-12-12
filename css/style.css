@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body { height: 100%; }
+
+.site {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+.header {
+  margin: 20px auto;
+  width: 90%;
+}
+
