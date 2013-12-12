@@ -62,13 +62,13 @@ endfunction
 "   swap occurances of ^s with the current word
 "   swap out ^e with the executable
 "   ^i at the beginning indicates leave the string as is
-function! s:BuildCommand()
-  let l:searchString = investigate#defaults#g:SearchStringForFiletype(&filetype, s:UseDash())
+function! s:BuildCommand(filetype, word)
+  let l:searchString = investigate#defaults#g:SearchStringForFiletype(a:filetype, s:UseDash())
   if l:searchString == ""
     return ""
   endif
 
-  let l:fullstring = substitute(l:searchString, '\M\^s', expand("<cword>"), "g")
+  let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
   let l:command = s:Executable() . l:fullstring
 
   if l:fullstring =~ '\M\^e'
@@ -82,12 +82,23 @@ endfunction
 
 " The actual open command for mapping ------ {{{
 function! investigate#Investigate()
-  let l:command = s:BuildCommand()
+  let l:filetype = &filetype
+  if l:filetype == ""
+    echomsg "You must set your filetype to look up documentation"
+    return
+  endif
+
+  let l:word = expand("<cword>")
+  if l:word == ""
+    echomsg "Put your cursor over a word to look up it's documentation"
+    return
+  endif
+
+  let l:command = s:BuildCommand(l:filetype, l:word)
   if l:command == ""
     return
   endif
 
-  echomsg l:command
   if l:command =~ s:Executable()
     execute system(l:command)
   else
