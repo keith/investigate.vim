@@ -23,7 +23,7 @@ let s:defaultLocations = {
   \ "php": ["php", "http://us3.php.net/results.php?q=^s"],
   \ "python":["python2", "http://docs.python.org/2/search.html?q=^s"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
-  \ "ruby": ["ruby", "http://ruby-doc.com/search.html?q=^s"],
+  \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"]
 \ }
 
