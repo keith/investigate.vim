@@ -52,6 +52,16 @@ let g:investigate_syntax_for_rspec=ruby
 
 Which will open all files with the filetype rspec with `ruby:` in Dash.
 
+If you use a different keyword in Dash for a given language you can
+set it by using:
+
+```
+let g:investigate_dash_for_ruby=rails
+```
+
+This would set all Ruby files to open in the Rails documentation.
+
+
 ### URLs
 
 If you don't like the website I chose as the default for a filetype you
@@ -64,9 +74,29 @@ let g:investigate_url_for_ruby="http://ruby-doc.com/search.html?q=^s"
 Where `^s` will be replaced with the word under the cursor for Ruby
 files.
 
+
 ### Custom Commands
 
+You can also open documentation with arbitrary shell commands. See
+|investigate-writing-commands| in the documentation for more info.
 
+
+### Project specific settings
+
+You can setup project specific settings with an `.invrc` file from the
+directory you launch Vim in. For example for a Rails project you may
+want to set Ruby files to open Rails documentation for that single
+project but not other Ruby gem based projects you're working on. To do
+that the file would look something like this:
+
+```
+[syntax]
+ruby=rails
+```
+
+This works like one of the above variables that entirely changes Ruby
+files to open in the Rails documentation. See |investigate-conf-file|
+for more information.
 
 
 ## Installation
@@ -90,6 +120,7 @@ git clone https://github.com/Keithbsmiley/investigate.vim.git
 
 ## Development
 
-I'd love any pull requests you can muster. Especially the addition of
-language specific documentation URLs.
+If you find any bugs, want any languages added, or want any default
+language settings changed, please submit an
+[issue](https://github.com/Keithbsmiley/investigate.vim/issues/new).
 
