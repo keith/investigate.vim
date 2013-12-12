@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ site.name }}</title>
+    <meta name="description" content="Investigate is a vim plugin for viewing documentation in Dash for OS X, a web browser, or the terminal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/syntax.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+    <div class="site">
+      <div class="title">
+        <pre>
+            ____                     __  _             __             _
+           /  _/___ _   _____  _____/ /_(_)___ _____ _/ /____  _   __(_)___ ___
+           / // __ \ | / / _ \/ ___/ __/ / __ `/ __ `/ __/ _ \| | / / / __ `__ \
+         _/ // / / / |/ /  __(__  ) /_/ / /_/ / /_/ / /_/  __/| |/ / / / / / / /
+        /___/_/ /_/|___/\___/____/\__/_/\__, /\__,_/\__/\___(_)___/_/_/ /_/ /_/
+                                       /____/
+        </pre>
+      </div>
+    </div>
 
-    </head>
-    <body>
 
-        <div class="site">
-          <div class="header">
-            <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-            <a class="extra" href="/">home</a>
-          </div>
+    <div class="site">
+      <div class="title">
+        <pre>
+             ____                     __  _             __
+            /  _/___ _   _____  _____/ /_(_)___ _____ _/ /____
+            / // __ \ | / / _ \/ ___/ __/ / __ `/ __ `/ __/ _ \
+          _/ // / / / |/ /  __(__  ) /_/ / /_/ / /_/ / /_/  __/
+        /___/_/ /_/|___/\___/____/\__/_/\__, /\__,_/\__/\___/
+                                        /____/
 
-          {{ content }}
+        </pre>
+      </div>
 
-          <div class="footer">
-            <div class="contact">
-              <p>
-                Your Name<br />
-                What You Are<br />
-                you@example.com
-              </p>
-            </div>
-            <div class="contact">
-              <p>
-                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
-                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
-              </p>
-            </div>
-          </div>
-        </div>
+      {{ content }}
 
-    </body>
+      <div class="footer">
+      </div>
+    </div>
+  </body>
 </html>
