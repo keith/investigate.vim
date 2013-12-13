@@ -16,20 +16,28 @@ let s:customCommand = 2
 " Default language settings ------ {{{
 let s:defaultLocations = {
   \ "c": ["c", "http://en.cppreference.com/mwiki/index.php?search=^s"],
+  \ "cs": ["cs", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
+  \ "css": ["css", "http://cssdocs.org/^s"],
+  \ "coffee": ["coffee", "https://developer.mozilla.org/en-US/search?q=^s&topic=api&topic=js"],
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=^s"],
   \ "go": ["go", "http://golang.org/search?q=^s"],
   \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=^s"],
+  \ "java": ["java6", "http://javadocs.org/^s"],
+  \ "javascript": ["javascript", "https://developer.mozilla.org/en-US/search?q=^s&topic=api&topic=js"],
   \ "objc": ["iphoneos", "https://developer.apple.com/search/index.php?q=^s"],
   \ "php": ["php", "http://us3.php.net/results.php?q=^s"],
   \ "python":["python2", "http://docs.python.org/2/search.html?q=^s"],
+  \ "sh": ["", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
   \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"]
 \ }
 
 let s:syntaxAliases = {
+  \ "bash": "sh",
   \ "help": "vim",
-  \ "specta": "objc"
+  \ "specta": "objc",
+  \ "zsh": "sh"
 \ }
 " }}}
 
