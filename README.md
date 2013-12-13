@@ -47,7 +47,7 @@ If you use a different keyword in Dash for a given language you can
 set it by using:
 
 ```
-let g:investigate_dash_for_ruby=rails
+let g:investigate_dash_for_ruby="rails"
 ```
 
 This would set all Ruby files to open in the Rails documentation.

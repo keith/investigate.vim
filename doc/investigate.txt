@@ -106,7 +106,7 @@ is evaluated before any other mappings. This means if you override the URL
 settings for filetypeA and then alias filetypeB to filetypeA, filetypeB will
 use the overridden URL. An real example being help which is mapped to vim by
 default. Example:
-    let g:investigate_syntax_for_rspec=ruby
+    let g:investigate_syntax_for_rspec="ruby"
 
                                           *investigate_command_for_<filetype>*
 This variable allows you to set specific commands for a specific filetype.
@@ -116,7 +116,7 @@ or it sets another command. I could imagine you attempting to set ri as the
 default command for Ruby syntaxes. I haven't thought of a way to do that but
 if you do I'd love to know about it! Here's what it would look like if the
 default for vim hadn't already been set up.
-    let g:investigate_command_for_vim=^i:h ^s
+    let g:investigate_command_for_vim="^i:h ^s"
 
                                              *investigate_dash_for_<filetype>*
 This variable allows you to set specific Dash keywords for filetypes. You
@@ -124,7 +124,7 @@ would probably want to use this if you set up search profiles or changed
 then names of any the default docsets in Dash to something more useful. You
 don't need to add the : at the ed of the keyword. This remaps all ruby files
 to open the rails documentation:
-    let g:investigate_dash_for_ruby=rails
+    let g:investigate_dash_for_ruby="rails"
 
                                               *investigate_url_for_<filetype>*
 This variable allows you to set the URL for a filetype to search through. See
