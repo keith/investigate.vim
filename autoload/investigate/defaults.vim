@@ -18,10 +18,10 @@ let s:defaultLocations = {
   \ "android": ["android", "https://developer.android.com/reference/packages.html#q=^s"],
   \ "c": ["c", "http://en.cppreference.com/mwiki/index.php?search=^s"],
   \ "clojure": ["clojure", "http://clojuredocs.org/search?q=^s"],
-  \ "cs": ["cs", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
-  \ "css": ["css", "http://cssdocs.org/^s"],
   \ "coffee": ["coffee", "https://encrypted.google.com/search?q=^s&sitesearch=coffeescriptcookbook.com/chapters/syntax/"],
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=^s"],
+  \ "cs": ["cs", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
+  \ "css": ["css", "http://cssdocs.org/^s"],
   \ "go": ["go", "http://golang.org/search?q=^s"],
   \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=^s"],
   \ "html": ["html", "https://developer.mozilla.org/en-US/search?q=^s&topic=html"],
@@ -34,10 +34,10 @@ let s:defaultLocations = {
   \ "php": ["php", "http://us3.php.net/results.php?q=^s"],
   \ "prolog": ["", "http://www.swi-prolog.org/pldoc/search?for=^s"],
   \ "python": ["python2", "http://docs.python.org/2/search.html?q=^s"],
-  \ "scala": ["scala", "http://scalex.org/?q=^s"],
-  \ "sh": ["", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
   \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
+  \ "scala": ["scala", "http://scalex.org/?q=^s"],
+  \ "sh": ["", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"]
 \ }
 
