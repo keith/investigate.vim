@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   background: #fdf6e3;
   color: #073642;
@@ -21,6 +22,7 @@ a:hover {
 .header {
   font-size: 16px;
   margin: 15px auto;
+  padding-left: 30px;
 }
 
 .altheader {
@@ -80,10 +82,6 @@ a:hover {
   font-size: 22px;
   margin-bottom: 15px;
   text-align: center;
-}
-
-.installers {
-  margin: 0 auto 35px;
 }
 
 .method {
