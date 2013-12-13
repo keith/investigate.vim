@@ -20,8 +20,9 @@ let s:defaultLocations = {
   \ "clojure": ["clojure", "http://clojuredocs.org/search?q=^s"],
   \ "coffee": ["coffee", "https://encrypted.google.com/search?q=^s&sitesearch=coffeescriptcookbook.com/chapters/syntax/"],
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=^s"],
-  \ "cs": ["cs", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
+  \ "cs": ["net", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
   \ "css": ["css", "http://cssdocs.org/^s"],
+  \ "django": ["django", "https://docs.djangoproject.com/search/?q=^s"],
   \ "go": ["go", "http://golang.org/search?q=^s"],
   \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=^s"],
   \ "html": ["html", "https://developer.mozilla.org/en-US/search?q=^s&topic=html"],
@@ -37,8 +38,9 @@ let s:defaultLocations = {
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
   \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
   \ "scala": ["scala", "http://scalex.org/?q=^s"],
-  \ "sh": ["", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
-  \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"]
+  \ "sh": ["bash", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
+  \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"],
+  \ "xul": ["xul", "https://developer.mozilla.org/en-US/search?q=^s&topic=xul"]
 \ }
 
 let s:syntaxAliases = {
