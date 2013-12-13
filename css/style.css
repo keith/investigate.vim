@@ -5,7 +5,10 @@
 
 body {
   background: #fdf6e3;
+  background: #242424;
   color: #073642;
+  color: #aaa;
+  text-shadow: 1px 1px 1px #000;
   font-family: Georgia;
   font-size: 18px;
   line-height: 1.5;
