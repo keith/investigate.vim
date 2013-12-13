@@ -72,6 +72,7 @@ a:hover {
 
 .content {
   margin: 0 auto 25px;
+  padding-left: 10px;
   text-align: center;
 }
 
@@ -91,8 +92,7 @@ a:hover {
 }
 
 .installer {
-  float: left;
-  overflow: hidden;
+  margin: 15px auto;
 }
 
 h4 {
@@ -139,7 +139,7 @@ hr {
   height: 1px;
   margin: 1em auto;
   padding: 0;
-  width: 70%;
+  width: 50%;
 }
 
 .footer {

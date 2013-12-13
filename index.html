@@ -2,21 +2,21 @@
 layout: default
 ---
 
-<p class="content">
+<p class="content ten columns">
 <span class="desc"><a href="https://github.com/Keithbsmiley/investigate.vim">Investigate</a>
   is</span> a plugin for viewing documentation.
 </p>
 
-<p class="content">
+<p class="content ten columns">
 You can use investigate to view the documentation for the current word in Vim in
 a few different places. Through your web browser, using
 <a href="http://kapeli.com/dash">Dash.app</a> on OS X, or with an arbitrary shell
 command.
 </p>
 
-<div class="installers sixteen columns">
+<div class="installers ten columns">
 <h3 class="title">Installation</h3>
-<div class="installer seven columns">
+<div class="installer ten columns">
   <h4 class="method">With <a href="https://github.com/gmarik/vundle">Vundle</a></h4>
     In your <code>.vimrc</code>:
     <pre><code>Bundle 'Keithbsmiley/investigate.vim'</code></pre>
@@ -24,7 +24,7 @@ command.
     Then run <code>:BundleInstall</code> from within Vim
 </div>
 
-<div class="installer eight columns">
+<div class="installer ten columns">
   <h4 class="method" id="path">With <a href="https://github.com/tpope/vim-pathogen">Pathogen</a></h4>
 <pre><code>cd ~/.vim/bundle
 git clone \
@@ -32,8 +32,8 @@ git clone \
 </div>
 </div>
 
-<h3 class="title sixteen columns">Usage</h3>
-<div class="mapping ten columns offset-by-three">
+<h3 class="title ten columns">Usage</h3>
+<div class="mapping ten columns">
   Once investigate is installed you can setup a mapping for it in your <code>.vimrc</code>. I would recommend something like:
 <pre><code>nnoremap K :call investigate#Investigate()<cr></pre></code>
 </div>
