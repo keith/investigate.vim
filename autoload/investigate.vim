@@ -97,6 +97,7 @@ function! investigate#Investigate()
   let l:filetype = substitute(l:filetype, '\M.', '', 'g')
   let l:command = s:BuildCommand(l:filetype, l:word)
   if l:command == ""
+    echomsg "No documentation for " . l:filetype
     return
   endif
 

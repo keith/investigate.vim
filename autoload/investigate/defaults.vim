@@ -54,12 +54,7 @@ let s:syntaxAliases = {
 " Check to make sure the language is supported ------ {{{
 "   if not echo an error message
 function! s:HasKeyForFiletype(filetype)
-  if has_key(s:defaultLocations, a:filetype)
-    return 1
-  else
-    echomsg "No documentation for " . a:filetype
-    return 0
-  endif
+  return has_key(s:defaultLocations, a:filetype)
 endfunction
 " }}}
 
