@@ -9,7 +9,7 @@
 
 ==============================================================================
 
-CONTENTS                                                *investigate-contents*
+CONTENTS                                                         *investigate*
 
     1. Intro...................................|investigate-intro|
     2. Functionality...........................|investigate-functionality|
