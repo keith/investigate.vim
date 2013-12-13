@@ -3,8 +3,8 @@
   padding: 0;
 }
 body {
-  color: #073642;
   background: #fdf6e3;
+  color: #073642;
   font-family: Georgia;
   font-size: 18px;
   line-height: 1.5;
@@ -66,7 +66,6 @@ a:hover {
   }
 }
 
-
 .header pre {
   border: none;
 }
@@ -115,12 +114,11 @@ h4 {
 }
 
 .index pre code {
+  background: #fdf6e3;
   border: none;
-
+  color: #0b3641;
   display: block;
   padding: 0.5em;
-  background: #fdf6e3;
-  color: #0b3641;
 }
 
 .index code {
@@ -133,5 +131,20 @@ h4 {
 
 .mapping pre {
   border: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px dotted #93a1a1;
+  height: 1px;
+  margin: 1em auto;
+  padding: 0;
+  width: 70%;
+}
+
+.footer {
+  font: 12px Monaco, Courier, monospace;
+  margin: 30px auto;
+  text-align: center;
 }
 
