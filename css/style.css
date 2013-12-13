@@ -25,7 +25,6 @@ a:hover {
 
 .altheader {
   display: none !important;
-  padding-bottom: 20px;
   font-size: 35px;
   font-weight: bold;
   text-align: center;
@@ -43,6 +42,10 @@ a:hover {
     font-size: 9px;
   }
 
+  span.desc {
+    display: none !important;
+  }
+
   .altheader {
     display: inline !important;
   }
@@ -52,6 +55,10 @@ a:hover {
   .header {
     display: none !important;
     font-size: 5px;
+  }
+
+  span.desc {
+    display: none !important;
   }
 
   .altheader {
