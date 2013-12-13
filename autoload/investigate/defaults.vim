@@ -177,12 +177,18 @@ function! s:SearchStringForSyntax(syntax, forDash)
   endif
 
   if s:HasCustomCommandForFiletype(a:syntax)
-    return s:CustomCommandForFiletype(a:syntax)
-  elseif a:forDash
-    return s:DashStringForFiletype(a:syntax)
-  else
-    return s:URLForFiletype(a:syntax)
+    let l:command = s:CustomCommandForFiletype(a:syntax)
   endif
+
+  if l:command == "" && a:forDash
+    let l:command = s:DashStringForFiletype(a:syntax)
+  endif
+
+  if l:command == ""
+    let l:command = s:URLForFiletype(a:syntax)
+  endif
+
+  return l:command
 endfunction
 " }}}
 
