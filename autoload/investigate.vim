@@ -94,6 +94,7 @@ function! investigate#Investigate()
     return
   endif
 
+  let l:filetype = substitute(l:filetype, '\M.', '', 'g')
   let l:command = s:BuildCommand(l:filetype, l:word)
   if l:command == ""
     return
