@@ -8,30 +8,34 @@ is a plugin for viewing documentation.
 </p>
 
 <p class="content">
-You can use it to view the documentation for the current word in Vim in
+You can use investigate to view the documentation for the current word in Vim in
 a few different places. Through your web browser, using
 <a href="http://kapeli.com/dash">Dash.app</a> on OS X, or with an arbitrary shell
 command.
 </p>
 
-<div class="installers">
-<div class="installer">
-  <h4>With <a href="https://github.com/gmarik/vundle">Vundle</a></h4>
+<div class="installers sixteen columns">
+<h3 class="title">Installation</h3>
+<div class="installer seven columns">
+  <h4 class="method">With <a href="https://github.com/gmarik/vundle">Vundle</a></h4>
     In your <code>.vimrc</code>:
     <pre><code>Bundle 'Keithbsmiley/investigate.vim'</code></pre>
 
     Then run <code>:BundleInstall</code> from within Vim
 </div>
 
-<div class="installer">
-  <h4 id="path">With <a href="https://github.com/tpope/vim-pathogen">Pathogen</a></h4>
+<div class="installer eight columns">
+  <h4 class="method" id="path">With <a href="https://github.com/tpope/vim-pathogen">Pathogen</a></h4>
 <pre><code>cd ~/.vim/bundle
-git clone https://github.com/Keithbsmiley/investigate.vim.git</pre></code>
+git clone \
+  https://github.com/Keithbsmiley/investigate.vim.git</pre></code>
 </div>
 </div>
 
-<div class="mapping">
+<h3 class="title sixteen columns">Usage</h3>
+<div class="mapping ten columns offset-by-three">
   Once investigate is installed you can setup a mapping for it in your <code>.vimrc</code>. I would recommend something like:
 <pre><code>nnoremap K :call investigate#Investigate()<cr></pre></code>
+</div>
 </div>
 

@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{ site.name }}</title>
+    <meta name="author" content="Keith Smiley">
     <meta name="description" content="Investigate is a vim plugin for viewing documentation in Dash for OS X, a web browser, or the terminal">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-  <div class="site">
-    <div class="header">
+  <div class="site container">
+    <div class="header sixteen columns">
       <pre>
             ____                     __  _             __             _
            /  _/___ _   _____  _____/ /_(_)___ _____ _/ /____  _   __(_)___ ___
@@ -23,10 +25,14 @@
       </pre>
     </div>
 
-    <div class="index">
+    <div class="altheader sixteen columns">
+      Investigate.vim
+    </div>
+
+    <div class="index sixteen columns">
       {{ content }}
     </div>
-    <div class="footer">
+    <div class="footer sixteen columns">
     </div>
   </div>
   </body>

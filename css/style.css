@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
 }
-
 body {
   color: #073642;
   background: #fdf6e3;
@@ -19,64 +18,92 @@ a:hover {
   background: #eee8d5;
 }
 
-.site {
-  margin: 0 auto;
-  width: 1000px;
-}
-
 .header {
   font-size: 16px;
   margin: 15px auto;
-  width: 85%;
 }
+
+.altheader {
+  display: none !important;
+  padding-bottom: 20px;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .header {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .header {
+    display: none !important;
+    font-size: 9px;
+  }
+
+  .altheader {
+    display: inline !important;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .header {
+    display: none !important;
+    font-size: 5px;
+  }
+
+  .altheader {
+    display: inline !important;
+  }
+}
+
 
 .header pre {
   border: none;
 }
 
 .content {
-  /* font-size: 20px; */
   margin: 0 auto 25px;
   text-align: center;
-  width: 60%;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .installers {
-  display: inline-block;
   margin: 0 auto 35px;
+}
+
+.method {
+  margin: 0 auto;
+  text-align: center;
 }
 
 .installer {
   float: left;
   overflow: hidden;
-  width: 50%;
 }
 
-p {
-  margin-bottom: 20px;
-}
-
-h3, h4 {
+h4 {
   margin-bottom: 10px;
   text-align: left;
 }
 
-h4#path {
-  text-align: right;
-}
-
 .index pre,.index code {
- font: 15px Monaco, Courier, monospace;
+  font: 14px Monaco, Courier, monospace;
 }
 
 .index pre {
   border: 2px solid #eee7d6;
-  color: #444;
-  margin:12px 0;
+  margin: 12px 0;
   overflow: auto;
   padding: 2px;
   white-space: pre;
-  width: 95%;
   word-wrap: normal;
 }
 
@@ -90,23 +117,14 @@ h4#path {
 }
 
 .index code {
-  display: inline-block;
-  padding: 3px;
-  background-color:#fdf6e3;
   color:#596e75;
-  border:1px solid #eee7d6;
 }
 
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px dotted #eee7d6;
-  margin: 1em 0;
-  padding: 0;
+.mapping {
+  text-align: center;
 }
 
 .mapping pre {
-  width: 100%;
+  border: none;
 }
 
