@@ -8,8 +8,6 @@ shell command.
 ## Example
 
 ![Web](http://keithbsmiley.github.io/investigate.vim/img/web.gif)
-![Dash](http://keithbsmiley.github.io/investigate.vim/img/dash.gif)
-![Vim](http://keithbsmiley.github.io/investigate.vim/img/vim.gif)
 
 ## Setup
 
