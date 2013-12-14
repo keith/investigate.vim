@@ -118,6 +118,8 @@ cd ~/.vim/bundle
 git clone https://github.com/Keithbsmiley/investigate.vim.git
 ```
 
+To generate the helptags afterwards run `:Helptags`
+
 ## Development
 
 If you find any bugs, want any languages added, or want any default
