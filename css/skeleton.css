@@ -53,7 +53,7 @@
     .container .two-thirds.column               { width: 620px; }
 
     /* Offsets */
-    .container .offset-by-one                   { padding-left: 160px;  }
+    .container .offset-by-one                   { padding-left: 160px; } /* Updated for Keith */
     .container .offset-by-two                   { padding-left: 120px; }
     .container .offset-by-three                 { padding-left: 180px; }
     .container .offset-by-four                  { padding-left: 240px; }
@@ -132,7 +132,7 @@
     @media only screen and (max-width: 767px) {
         .container { width: 300px; }
         .container .columns,
-        .container .column { margin: 0; }
+        .container .column { margin-left: 0; margin-right: 0; }
 
         .container .one.column,
         .container .one.columns,
@@ -182,7 +182,7 @@
     @media only screen and (min-width: 480px) and (max-width: 767px) {
         .container { width: 420px; }
         .container .columns,
-        .container .column { margin: 0; }
+        .container .column { margin-left: 0; margin-right: 0; }
 
         .container .one.column,
         .container .one.columns,
