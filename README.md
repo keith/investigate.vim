@@ -5,6 +5,12 @@ You can choose to open it in a browser, with
 [Dash](http://kapeli.com/dash) on OS X, or with an arbitary
 shell command.
 
+## Example
+
+![Web](http://keithbsmiley.github.io/investigate.vim/img/web.gif)
+![Dash](http://keithbsmiley.github.io/investigate.vim/img/dash.gif)
+![Vim](http://keithbsmiley.github.io/investigate.vim/img/vim.gif)
+
 ## Setup
 
 Example mapping:
