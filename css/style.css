@@ -4,22 +4,19 @@
 }
 
 body {
-  background: #fdf6e3;
-  background: #242424;
-  color: #073642;
-  color: #aaa;
-  text-shadow: 1px 1px 1px #000;
+  background: #07171B;
+  color: #EBEFC0;
   font-family: Georgia;
   font-size: 18px;
   line-height: 1.5;
 }
 
 a, a:visited {
-  color: #b58900;
+  color: #CF5502;
 }
 
 a:hover {
-  background: #eee8d5;
+  color: #EBC562;
 }
 
 .header {
@@ -94,6 +91,7 @@ a:hover {
 
 .installer {
   margin: 15px auto;
+  padding: 0 10px;
 }
 
 h4 {
@@ -106,7 +104,7 @@ h4 {
 }
 
 .index pre {
-  border: 2px solid #eee7d6;
+  border: 1px solid #EBEFC0;
   margin: 12px 0;
   overflow: auto;
   padding: 2px;
@@ -117,10 +115,11 @@ h4 {
 .index pre code {
   display: block;
   padding: 0.5em;
+  color: #EBEFC0;
 }
 
 .index code {
-  color:#596e75;
+  color: #CB7636;
 }
 
 .mapping {
