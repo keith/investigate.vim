@@ -104,8 +104,12 @@ function! investigate#Investigate()
   if l:command =~ s:Executable()
     execute system(l:command)
   else
-    execute l:command
-    redraw!
+    try
+      silent execute l:command
+      redraw!
+    catch /^Vim\%((\a\+)\)\=:E149/
+      echo v:exception
+    endtry
   endif
 endfunction
 " }}}
