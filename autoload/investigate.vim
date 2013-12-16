@@ -1,14 +1,14 @@
 " Vim Plugin for viewing documentation
 " Maintainer: Keith Smiley <keithbsmiley@gmail.com>
 " Last Change: 2013 Dec
-" Version: 1.0.0
+" Version: 1.0.1
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
-if exists("g:investigate_plugin_loaded")
+if exists("g:investigate_auto_loaded")
   finish
 endif
-let g:investigate_plugin_loaded = 1
+let g:investigate_auto_loaded = 1
 
 if !exists("g:investigate_use_dash")
   let g:investigate_use_dash = 0

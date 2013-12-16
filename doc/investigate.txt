@@ -29,8 +29,9 @@ CONTENTS                                                         *investigate*
 Investigate is a plugin for viewing language documentation for the word under
 the cursor.
 
-Map it with something like:
-    nnoremap K :call investigate#Investigate()<cr>
+By default investigate is mapped to 'gK'. If you want to set up your
+own mapping you should use something like this:
+    nnoremap <leader>K :call investigate#Investigate()<CR>
 
 
 ==============================================================================

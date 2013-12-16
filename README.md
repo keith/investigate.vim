@@ -11,10 +11,11 @@ shell command.
 
 ## Setup
 
-Example mapping:
+By default investigate is mapped to `gK`. If you want to set up your
+own mapping you should use something like this:
 
 ```
-nnoremap K :call investigate#Investigate()<cr>
+nnoremap <leader>K :call investigate#Investigate()<CR>
 ```
 
 With this mapping, using capital K when your cursor is on a specific
