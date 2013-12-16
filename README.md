@@ -2,7 +2,7 @@
 
 A plugin for looking documentation on the word under the cursor.
 You can choose to open it in a browser, with
-[Dash](http://kapeli.com/dash) on OS X, or with an arbitary
+[Dash](http://kapeli.com/dash) on OS X, or with an arbitrary
 shell command.
 
 ## Example
@@ -18,7 +18,7 @@ own mapping you should use something like this:
 nnoremap <leader>K :call investigate#Investigate()<CR>
 ```
 
-With this mapping, using capital K when your cursor is on a specific
+With this mapping, using <leader>K when your cursor is on a specific
 word will open its documentation. The [help
 file](https://github.com/Keithbsmiley/investigate.vim/blob/master/doc/investigate.txt)
 has tons of documentation on configuration. Here are some of the
