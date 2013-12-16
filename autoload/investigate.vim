@@ -1,7 +1,7 @@
 " Vim Plugin for viewing documentation
 " Maintainer: Keith Smiley <keithbsmiley@gmail.com>
 " Last Change: 2013 Dec
-" Version: 1.0.1
+" Version: 1.0.2
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
