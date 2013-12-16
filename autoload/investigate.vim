@@ -1,7 +1,7 @@
 " Vim Plugin for viewing documentation
 " Maintainer: Keith Smiley <keithbsmiley@gmail.com>
 " Last Change: 2013 Dec
-" Version: 1.0.2
+" Version: 1.0.3
 " License: MIT, See LICENSE for text
 
 " Plugin and variable setup ------ {{{
@@ -40,7 +40,7 @@ function! s:Executable()
   elseif has("win32unix")
     return "cygstart "
   elseif has("win32")
-    return "start "
+    return "start explorer "
   endif
 
   echomsg "No executable found for opening URLs"
