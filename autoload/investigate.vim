@@ -64,16 +64,14 @@ endfunction
 "   ^i at the beginning indicates leave the string as is
 function! s:BuildCommand(filetype, word)
   let l:searchString = investigate#defaults#g:SearchStringForFiletype(a:filetype, s:UseDash())
-  if l:searchString == ""
-    return ""
-  endif
+  if empty(l:searchString) | return "" | endif
 
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
   let l:command = s:Executable() . l:fullstring
 
   if l:fullstring =~ '\M\^e'
     let l:command = substitute(l:fullstring, '\M\^e', s:Executable(), "g")
-  elseif strpart(l:fullstring, 0, 2) == '^i'
+  elseif strpart(l:fullstring, 0, 2) ==? '^i'
     let l:command = substitute(l:fullstring, '\M\^i', "", "g")
   endif
   return l:command
@@ -83,20 +81,20 @@ endfunction
 " The actual open command for mapping ------ {{{
 function! investigate#Investigate()
   let l:filetype = &filetype
-  if l:filetype == ""
+  if empty(l:filetype)
     echomsg "You must set your filetype to look up documentation"
     return
   endif
 
   let l:word = expand("<cword>")
-  if l:word == ""
+  if empty(l:word)
     echomsg "Put your cursor over a word to look up it's documentation"
     return
   endif
 
   let l:filetype = substitute(l:filetype, '\M.', '', 'g')
   let l:command = s:BuildCommand(l:filetype, l:word)
-  if l:command == ""
+  if empty(l:command)
     echomsg "No documentation for " . l:filetype
     return
   endif

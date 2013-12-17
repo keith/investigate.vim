@@ -4,7 +4,7 @@ if exists("g:investigate_plugin_loaded")
 endif
 let g:investigate_plugin_loaded = 1
 
-if !hasmapto("investigate#Investigate()") && mapcheck("gK", "n") == ""
+if !hasmapto("investigate#Investigate()") && empty(mapcheck("gK", "n"))
   nnoremap gK :call investigate#Investigate()<CR>
 endif
 
