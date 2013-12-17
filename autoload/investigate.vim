@@ -58,7 +58,7 @@ endfunction
 "   swap out ^e with the executable
 "   ^i at the beginning indicates leave the string as is
 function! s:BuildCommand(filetype, word)
-  let l:searchString = investigate#defaults#g:SearchStringForFiletype(a:filetype, s:UseDash())
+  let l:searchString = investigate#defaults#SearchStringForFiletype(a:filetype, s:UseDash())
   if empty(l:searchString) | return "" | endif
 
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")

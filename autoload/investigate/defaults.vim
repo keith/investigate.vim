@@ -166,7 +166,7 @@ endfunction
 " }}}
 
 " Choose file command based on custom, dash or URL ------ {{{
-function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
+function! investigate#defaults#SearchStringForFiletype(filetype, forDash)
   call s:LoadFolderSpecificSettings()
   call s:LoadSyntaxAliasSettings()
 
