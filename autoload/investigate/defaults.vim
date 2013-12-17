@@ -319,7 +319,10 @@ function! s:DashStringForFiletype(filetype)
     let l:string = s:defaultLocations[a:filetype][s:dashString]
   endif
 
-  if !empty(l:string) | let l:string = "dash://" . l:string . ":^s" | endif
+  if !empty(l:string)
+    " let l:string = 'dash-plugin://keys=' . l:string . '&query=^s'
+    let l:string = "dash://" . l:string . ":^s"
+  endif
   return l:string
 endfunction
 
