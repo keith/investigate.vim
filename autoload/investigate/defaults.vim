@@ -71,9 +71,7 @@ function! s:LoadFolderSpecificSettings()
 
   " Get the local file path and make sure it exists
   let l:filename = getcwd() . "/" . g:investigate_local_filename
-  if glob(l:filename) == ""
-    return
-  endif
+  if empty(glob(l:filename)) | return | endif
 
   let l:contents = s:ReadAndCleanFile(l:filename)
   let l:commands = s:ParseRCFileContents(l:contents)
@@ -96,13 +94,13 @@ function! s:ParseRCFileContents(contents)
     let l:identifierString = s:IdentifierFromString(l:line)
 
     " If the string isn't an identifier
-    if l:identifierString == ""
+    if empty(l:identifierString)
       " Get the end of the command string
       let l:command = s:MatchForString(l:line)
-      if l:command == ""
+      if empty(l:command)
         " Print an error if the syntax is invalid
         echomsg "Invalid syntax: '" . l:line . "'"
-      elseif l:identifier == ""
+      elseif empty(l:identifier)
         " Print an error if no identifier has come before this line
         echomsg "No previous identifier: " . l:line
       else
@@ -128,9 +126,7 @@ function! s:ReadAndCleanFile(filepath)
   for l:line in l:contents
     let l:trimmed = substitute(l:line, "^\\s*", "", "g")
     let l:trimmed = substitute(l:trimmed, "\\s*$", "", "g")
-    if l:trimmed != ""
-      call add(l:final, l:trimmed)
-    endif
+    if !empty(l:trimmed) | call add(l:final, l:trimmed) | endif
   endfor
 
   return l:final
@@ -143,9 +139,7 @@ endfunction
 " ruby -> ""
 function! s:MatchForString(string)
   " Return an empty string unless there is at least 1 equals sign
-  if match(a:string, '=') < 1
-    return ""
-  endif
+  if match(a:string, '=') < 1 | return "" | endif
 
   " String the spaces from around the first equals sign
   let l:trim  = substitute(a:string, '\M\s\*=\s\*', '=', '')
@@ -163,7 +157,7 @@ endfunction
 " [dash] -> dash
 " dash -> ""
 function! s:IdentifierFromString(string)
-  if strpart(a:string, 0, 1) == "[" && strpart(a:string, len(a:string) - 1, 1) == "]"
+  if strpart(a:string, 0, 1) ==# "[" && strpart(a:string, len(a:string) - 1, 1) ==# "]"
     return strpart(a:string, 1, len(a:string) - 2)
   endif
 
@@ -179,28 +173,24 @@ function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
   " Has syntax for foo, get string for foo, another function
   let l:type = a:filetype
   let l:syntax = s:SyntaxStringForFiletype(a:filetype)
-  if l:syntax != ""
-    let l:type = l:syntax
-  endif
+  if !empty(l:syntax) | let l:type = l:syntax | endif
 
   return s:SearchStringForSyntax(l:type, a:forDash)
 endfunction
 
 function! s:SearchStringForSyntax(syntax, forDash)
   let l:command = s:UserOverrideForSyntax(a:syntax, a:forDash)
-  if l:command != ""
-    return l:command
-  endif
+  if !empty(l:command) | return l:command | endif
 
   if s:HasCustomCommandForFiletype(a:syntax)
     let l:command = s:CustomCommandForFiletype(a:syntax)
   endif
 
-  if l:command == "" && a:forDash
+  if empty(l:command) && a:forDash
     let l:command = s:DashStringForFiletype(a:syntax)
   endif
 
-  if l:command == ""
+  if empty(l:command)
     let l:command = s:URLForFiletype(a:syntax)
   endif
 
@@ -251,7 +241,7 @@ function! s:UserOverrideForSyntax(syntax, forDash)
     let l:command = s:URLForFiletype(a:syntax)
   endif
 
-  if l:command == ""
+  if empty(l:command)
     if exists(s:CustomCommandStringForFiletype(a:syntax))
       let l:command = s:CustomCommandForFiletype(a:syntax)
     elseif exists(s:CustomDashStringForFiletype(a:syntax))
@@ -329,9 +319,7 @@ function! s:DashStringForFiletype(filetype)
     let l:string = s:defaultLocations[a:filetype][s:dashString]
   endif
 
-  if l:string != ""
-    let l:string = "dash://" . l:string . ":^s"
-  endif
+  if !empty(l:string) | let l:string = "dash://" . l:string . ":^s" | endif
   return l:string
 endfunction
 
@@ -361,9 +349,7 @@ function! s:URLForFiletype(filetype)
     let l:url = s:defaultLocations[a:filetype][s:searchURL]
   endif
 
-  if l:url != ""
-    let l:url = "\"" . l:url . "\""
-  endif
+  if !empty(l:url) | let l:url = "\"" . l:url . "\"" | endif
 
   return l:url
 endfunction
