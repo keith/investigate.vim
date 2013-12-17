@@ -1,9 +1,4 @@
-" Vim Plugin for viewing documentation
-" Maintainer: Keith Smiley <keithbsmiley@gmail.com>
-" Last Change: 2013 Dec
-" Version: 1.0.3
-" License: MIT, See LICENSE for text
-
+" autoload/investigate.vim
 " Plugin and variable setup ------ {{{
 if exists("g:investigate_auto_loaded")
   finish

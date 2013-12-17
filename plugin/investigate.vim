@@ -1,4 +1,9 @@
-" autoload/investigate.vim for more info
+" Vim Plugin for viewing documentation
+" Maintainer: Keith Smiley <keithbsmiley@gmail.com>
+" Last Change: 2013 Dec
+" Version: 1.0.4
+" License: MIT, See LICENSE for text
+
 if exists("g:investigate_plugin_loaded")
   finish
 endif
