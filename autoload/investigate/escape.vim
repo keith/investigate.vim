@@ -25,7 +25,6 @@ let s:escapes = {
   \ ']': '%5D'
  \ }
 
-" function! Esc(string)
 function! investigate#escape#EscapeString(string)
   let l:escaped = ""
   for char in split(a:string, '\zs')
