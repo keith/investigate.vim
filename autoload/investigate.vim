@@ -8,8 +8,6 @@ let g:investigate_auto_loaded = 1
 if !exists("g:investigate_use_dash")
   let g:investigate_use_dash = 0
 endif
-
-runtime! plugin/investigate/*.vim
 " }}}
 
 " Return the executable tool for documentation opening ------ {{{
