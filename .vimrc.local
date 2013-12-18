@@ -1,0 +1,1 @@
+nnoremap <leader>r :w<CR>\|:!bundle exec vim-flavor test<CR>
