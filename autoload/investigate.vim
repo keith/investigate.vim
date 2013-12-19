@@ -95,7 +95,7 @@ function! investigate#Investigate()
   endif
 
   if l:command =~ s:Executable()
-    execute system(l:command)
+    call system(l:command)
   else
     try
       silent execute l:command
