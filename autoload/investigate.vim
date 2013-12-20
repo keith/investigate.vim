@@ -60,6 +60,7 @@ function! s:BuildCommand(filetype, word)
   if empty(l:searchString) | return "" | endif
 
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
+  let l:fullstring = substitute(l:fullstring, '\M\^x', investigate#escape#EscapeString(a:word), "g")
   let l:command = s:Executable() . l:fullstring
 
   if l:fullstring =~ '\M\^e'

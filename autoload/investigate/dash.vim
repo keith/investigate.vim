@@ -11,7 +11,7 @@ let s:lsregister = '/System/Library/Frameworks/CoreServices.framework/Versions/A
 
 " Get the correct string depending on Dash compatibility ------ {{{
 function! investigate#dash#DashString(syntax)
-  if exists("g:investigate_dash_format")
+  if exists('g:investigate_dash_format')
     return s:SyntaxString(eval('g:investigate_dash_format'), a:syntax)
   endif
 
@@ -37,7 +37,7 @@ function! s:DashFormat(path)
   let l:command = s:LSRegisterCommand(a:path)
   let l:output = system(l:command)
   if s:HasDashPlugin(l:output)
-    let l:format = "dash-plugin://keys=^f&query=^x"
+    let l:format = "dash-plugin://keys=^f\\&query=^x"
   end
 
   return l:format
