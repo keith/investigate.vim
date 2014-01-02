@@ -8,8 +8,6 @@ let g:investigate_auto_loaded = 1
 if !exists("g:investigate_use_dash")
   let g:investigate_use_dash = 0
 endif
-
-runtime! plugin/investigate/*.vim
 " }}}
 
 " Return the executable tool for documentation opening ------ {{{
@@ -58,10 +56,11 @@ endfunction
 "   swap out ^e with the executable
 "   ^i at the beginning indicates leave the string as is
 function! s:BuildCommand(filetype, word)
-  let l:searchString = investigate#defaults#g:SearchStringForFiletype(a:filetype, s:UseDash())
+  let l:searchString = investigate#defaults#SearchStringForFiletype(a:filetype, s:UseDash())
   if empty(l:searchString) | return "" | endif
 
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
+  let l:fullstring = substitute(l:fullstring, '\M\^x', investigate#escape#EscapeString(a:word), "g")
   let l:command = s:Executable() . l:fullstring
 
   if l:fullstring =~ '\M\^e'

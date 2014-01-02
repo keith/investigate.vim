@@ -166,7 +166,7 @@ endfunction
 " }}}
 
 " Choose file command based on custom, dash or URL ------ {{{
-function investigate#defaults#g:SearchStringForFiletype(filetype, forDash)
+function! investigate#defaults#SearchStringForFiletype(filetype, forDash)
   call s:LoadFolderSpecificSettings()
   call s:LoadSyntaxAliasSettings()
 
@@ -320,8 +320,7 @@ function! s:DashStringForFiletype(filetype)
   endif
 
   if !empty(l:string)
-    " let l:string = 'dash-plugin://keys=' . l:string . '&query=^s'
-    let l:string = "dash://" . l:string . ":^s"
+    return investigate#dash#DashString(l:string)
   endif
   return l:string
 endfunction

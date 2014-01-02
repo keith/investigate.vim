@@ -74,6 +74,12 @@ is ignored.
 
 Download Dash for OS X from http://kapeli.com/dash
 
+                                                     *investigate_dash_format*
+This variable is set automatically by investigate depending on whether the
+current version of Dash supports the dash-plugin URL scheme. In theory you
+could set this if you noticed a slow down on the first dash query each time
+you opened Vim. In practice this shouldn't have much of an effect.
+
                                       *investigate_use_command_for_<filetype>*
 Tell investigate to use the custom command for a specific filetype. Since,
 behind the scenes the custom command is the highest priority of command to
@@ -121,10 +127,13 @@ default for vim hadn't already been set up.
 
                                              *investigate_dash_for_<filetype>*
 This variable allows you to set specific Dash keywords for filetypes. You
-would probably want to use this if you set up search profiles or changed
-then names of any the default docsets in Dash to something more useful. You
-don't need to add the : at the ed of the keyword. This remaps all ruby files
-to open the rails documentation:
+would probably want to use this if you set up search profiles or changed then
+names of any the default docsets in Dash to something more useful. You don't
+need to add the : at the end of the keyword. If you are using a version of
+Dash greater than 1.9.3 then investigate will use the dash-plugin URL scheme
+which means you shouldn't have to change this option if you've just changed
+the default name for a docset. This remaps all ruby files to open the rails
+documentation:
     let g:investigate_dash_for_ruby="rails"
 
                                               *investigate_url_for_<filetype>*
@@ -186,6 +195,7 @@ Example:
 Custom commands have 3 special identifiers for you to use.
 
     ^s - This is replaced with the search string from under the cursor
+    ^x - This is replaced with the URL escaped word from under the cursor
     ^e - This is replaced with the executable for the current system
     ^i - This tells investigate not to prepend the executable
 
