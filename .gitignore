@@ -22,4 +22,6 @@ Session.vim
 .netrwhist
 *~
 
+.vim-flavor
+.bundle
 
