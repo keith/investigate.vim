@@ -48,14 +48,16 @@ want to use this which will override the global Dash setting:
 let g:investigate_use_url_for_ruby=1
 ```
 
-If you use a different keyword in Dash for a given language you can
-set it by using:
+If you want to use a different keyword in Dash for a given language you
+can set it by using:
 
 ```
 let g:investigate_dash_for_ruby="rails"
 ```
 
 This would set all Ruby files to open in the Rails documentation.
+Note: If you're using a Dash 1.9.3 or newer you don't have to set this
+for docsets that you have renamed.
 
 
 ### URLs
