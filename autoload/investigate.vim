@@ -33,7 +33,7 @@ function! s:Executable()
   elseif has("win32unix")
     return "cygstart "
   elseif has("win32")
-    return "start explorer "
+    return "explorer "
   endif
 
   echomsg "No executable found for opening URLs"
