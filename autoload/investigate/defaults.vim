@@ -4,10 +4,6 @@ if exists("g:investigate_loaded_defaults")
 endif
 let g:investigate_loaded_defaults = 1
 
-if !exists("g:investigate_local_filename")
-  let g:investigate_local_filename=".invrc"
-endif
-
 let s:dashString    = 0
 let s:searchURL     = 1
 let s:customCommand = 2
@@ -62,7 +58,7 @@ endfunction
 " }}}
 
 " Custom local file reading ------ {{{
-function! s:LoadFolderSpecificSettings()
+function! investigate#defaults#LoadFolderSpecificSettings()
   " Only load the file once
   if exists("g:investigate_loaded_local")
     return
@@ -167,7 +163,8 @@ endfunction
 
 " Choose file command based on custom, dash or URL ------ {{{
 function! investigate#defaults#SearchStringForFiletype(filetype, forDash)
-  call s:LoadFolderSpecificSettings()
+  " Second call is ok since it won't finish if it's already been loaded
+  call investigate#defaults#LoadFolderSpecificSettings()
   call s:LoadSyntaxAliasSettings()
 
   " Has syntax for foo, get string for foo, another function
