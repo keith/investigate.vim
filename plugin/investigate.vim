@@ -14,7 +14,7 @@ if !exists("g:investigate_local_filename")
 endif
 
 if filereadable(g:investigate_local_filename)
-  call investigate#defaults#LoadFolderSpecificSettings()
+  execute 'call investigate#defaults#LoadFolderSpecificSettings()'
 endif
 
 if !hasmapto("investigate#Investigate()") && empty(mapcheck("gK", "n"))
