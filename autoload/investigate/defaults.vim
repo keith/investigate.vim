@@ -30,6 +30,7 @@ let s:defaultLocations = {
   \ "perl": ["perl", "http://perldoc.perl.org/search.html?q=^s"],
   \ "php": ["php", "http://us3.php.net/results.php?q=^s"],
   \ "prolog": ["", "http://www.swi-prolog.org/pldoc/search?for=^s"],
+  \ "puppet": ["puppet", "https://encrypted.google.com/search?q=^s&sitesearch=http://docs.puppetlabs.com/references/latest/"],
   \ "python": ["python", "http://docs.python.org/2/search.html?q=^s"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
   \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
