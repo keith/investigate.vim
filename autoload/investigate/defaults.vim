@@ -43,6 +43,7 @@ let s:defaultLocations = {
 let s:syntaxAliases = {
   \ "bash": "sh",
   \ "help": "vim",
+  \ "less": "css",
   \ "pythondjango": "django",
   \ "sass": "css",
   \ "scsscss": "css",
