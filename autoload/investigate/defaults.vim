@@ -46,7 +46,7 @@ let s:syntaxAliases = {
   \ "less": "css",
   \ "pythondjango": "django",
   \ "sass": "css",
-  \ "scsscss": "css",
+  \ "scss": "css",
   \ "specta": "objc",
   \ "zsh": "sh"
 \ }
