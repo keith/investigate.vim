@@ -17,7 +17,7 @@ let s:defaultLocations = {
   \ "coffee": ["coffee", "https://encrypted.google.com/search?q=^s&sitesearch=coffeescriptcookbook.com/chapters/syntax/"],
   \ "cpp": ["cpp", "http://en.cppreference.com/mwiki/index.php?search=^s"],
   \ "cs": ["net", "http://social.msdn.microsoft.com/Search/en-US?query=^s#refinementChanges=117"],
-  \ "css": ["css", "http://cssdocs.org/^s"],
+  \ "css": ["css", "https://developer.mozilla.org/en-US/search?q=^s&topic=css"],
   \ "django": ["django", "https://docs.djangoproject.com/search/?q=^s"],
   \ "go": ["go", "http://golang.org/search?q=^s"],
   \ "haskell": ["haskell", "http://www.haskell.org/hoogle/?hoogle=^s"],
