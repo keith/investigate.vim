@@ -61,6 +61,7 @@ function! s:BuildCommand(filetype, word)
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
   let l:fullstring = substitute(l:fullstring, '\M\^x', investigate#escape#EscapeString(a:word), "g")
   let l:prg = s:Executable()
+  let l:empty = 0
   if empty(l:prg)
     let l:empty = 1
   endif
