@@ -71,4 +71,3 @@ function! investigate#dash#scope()
   return s:
 endfunction
 " }}}
-

@@ -368,4 +368,3 @@ function! s:UseURLForFiletype(filetype)
   return 0
 endfunction
 " }}}
-

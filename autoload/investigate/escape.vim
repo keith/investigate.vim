@@ -36,4 +36,3 @@ function! investigate#escape#EscapeString(string)
   endfor
   return l:escaped
 endfunction
-

@@ -20,7 +20,7 @@ function! s:Executable()
       return "/usr/bin/open "
     else
       echomsg "Missing `open` command"
-      finish
+      return ""
     endif
   elseif has("unix")
     if executable("xdg-open")
@@ -36,8 +36,7 @@ function! s:Executable()
     return "explorer "
   endif
 
-  echomsg "No executable found for opening URLs"
-  finish
+  return ""
 endfunction
 " }}}
 
@@ -61,12 +60,22 @@ function! s:BuildCommand(filetype, word)
 
   let l:fullstring = substitute(l:searchString, '\M\^s', a:word, "g")
   let l:fullstring = substitute(l:fullstring, '\M\^x', investigate#escape#EscapeString(a:word), "g")
-  let l:command = s:Executable() . l:fullstring
+  let l:prg = s:Executable()
+  if empty(l:prg)
+    let l:empty = 1
+  endif
+
+  let l:command = l:prg . l:fullstring
 
   if l:fullstring =~ '\M\^e'
-    let l:command = substitute(l:fullstring, '\M\^e', s:Executable(), "g")
+    let l:command = substitute(l:fullstring, '\M\^e', l:prg, "g")
   elseif strpart(l:fullstring, 0, 2) ==? '^i'
     let l:command = substitute(l:fullstring, '\M\^i', "", "g")
+    let l:empty = 0
+  endif
+
+  if l:empty
+    throw "Executable"
   endif
   return l:command
 endfunction
@@ -87,13 +96,20 @@ function! investigate#Investigate()
   endif
 
   let l:filetype = substitute(l:filetype, '\M.', '', 'g')
-  let l:command = s:BuildCommand(l:filetype, l:word)
+  try
+    let l:command = s:BuildCommand(l:filetype, l:word)
+  catch /^Executable$/
+    echomsg "No executable found for opening URLs"
+    return
+  endtry
+
   if empty(l:command)
     echomsg "No documentation for " . l:filetype
     return
   endif
 
-  if l:command =~ s:Executable()
+  let l:prg = s:Executable()
+  if !empty(l:prg) && l:command =~ l:prg
     call system(l:command)
   else
     try
@@ -105,4 +121,3 @@ function! investigate#Investigate()
   endif
 endfunction
 " }}}
-
