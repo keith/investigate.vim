@@ -102,26 +102,9 @@ Which entirely changes Ruby files to open in the Rails documentation.
 See `investigate-conf-file` for more information.
 
 
-## Installation
+If you don't have a preferred installation method check out
+[vim-plug](https://github.com/junegunn/vim-plug)
 
-### With [Vundle](https://github.com/gmarik/vundle)
-
-Add:
-
-```
-Bundle 'Keithbsmiley/investigate.vim'
-```
-
-To your `.vimrc` and run `BundleInstall` from within vim or `vim +BundleInstall +qall` from the command line
-
-### With [Pathogen](https://github.com/tpope/vim-pathogen)
-
-```
-cd ~/.vim/bundle
-git clone https://github.com/Keithbsmiley/investigate.vim.git
-```
-
-To generate the helptags afterwards run `:Helptags`
 
 ## Development
 
