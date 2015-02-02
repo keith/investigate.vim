@@ -182,7 +182,11 @@ function! s:SearchStringForSyntax(syntax, forDash)
   let l:command = s:UserOverrideForSyntax(a:syntax, a:forDash)
   if !empty(l:command) | return l:command | endif
 
-  if s:HasCustomCommandForFiletype(a:syntax)
+  if s:HasAllLanguagesURL()
+    let l:command = s:AllLanguagesURL()
+  endif
+
+  if empty(l:command) && s:HasCustomCommandForFiletype(a:syntax)
     let l:command = s:CustomCommandForFiletype(a:syntax)
   endif
 
@@ -267,6 +271,19 @@ function! s:SyntaxStringForFiletype(filetype)
   endif
 
   return l:string
+endfunction
+" }}}
+
+" All languages configuration ------ {{{
+function! s:AllLanguagesString()
+  return "g:investigate_url_for_everything"
+endfunction
+function! s:HasAllLanguagesURL()
+  return exists(s:AllLanguagesString())
+endfunction
+
+function! s:AllLanguagesURL()
+  return eval(s:AllLanguagesString())
 endfunction
 " }}}
 

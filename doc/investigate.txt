@@ -144,6 +144,10 @@ specific filetype. If you have a better one I'd love to hear about it via a
 pull request. This is the default ruby URL but if you were redefining it:
     let g:investigate_url_for_ruby="http://ruby-doc.com/search.html?q=^s"
 
+Using 'everything' as the <filetype> argument allows you to override the
+default URL for all filetypes. This enables you to use a single site for all
+languages.
+
 ------------------------------------------------------------------------------
 
 3.2 Configuration File                                 *investigate-conf-file*
