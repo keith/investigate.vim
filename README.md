@@ -1,1 +1,1 @@
-The site for [investigate.vim](http://keithbsmiley.github.io/investigate.vim/)
+The site for [investigate.vim](http://keith.github.io/investigate.vim/)
