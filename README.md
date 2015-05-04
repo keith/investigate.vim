@@ -7,7 +7,7 @@ shell command.
 
 ## Example
 
-![Web](http://keithbsmiley.github.io/investigate.vim/img/web.gif)
+![Web](http://keith.github.io/investigate.vim/img/web.gif)
 
 ## Setup
 
@@ -20,7 +20,7 @@ nnoremap <leader>K :call investigate#Investigate()<CR>
 
 With this mapping, using <leader>K when your cursor is on a specific
 word will open its documentation. The [help
-file](https://github.com/Keithbsmiley/investigate.vim/blob/master/doc/investigate.txt)
+file](https://github.com/keith/investigate.vim/blob/master/doc/investigate.txt)
 has tons of documentation on configuration. Here are some of the
 basic options.
 
@@ -110,5 +110,4 @@ If you don't have a preferred installation method check out
 
 If you find any bugs, want any languages added, or want any default
 language settings changed, please submit an
-[issue](https://github.com/Keithbsmiley/investigate.vim/issues/new).
-
+[issue](https://github.com/keith/investigate.vim/issues/new).
