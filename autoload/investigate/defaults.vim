@@ -34,8 +34,11 @@ let s:defaultLocations = {
   \ "python": ["python", "http://docs.python.org/2/search.html?q=^s"],
   \ "rails": ["rails", "http://api.rubyonrails.org/?q=^s"],
   \ "ruby": ["ruby", "http://www.omniref.com/?q=^s"],
+  \ "rust": ["rust", "https://doc.rust-lang.org/std/?search=^s"],
   \ "scala": ["scala", "http://scalex.org/?q=^s"],
   \ "sh": ["bash", "https://encrypted.google.com/search?q=^s&sitesearch=ss64.com"],
+  \ "stylus": ["stylus", "https://encrypted.google.com/search?q=^s&sitesearch=learnboost.github.io/stylus/"],
+  \ "tex": ["latex", "https://en.wikibooks.org/wiki/Special:Search?search=^s&prefix=LaTeX/"],
   \ "vim": ["vim", "http://vim.wikia.com/wiki/Special:Search?search=^s", "^i:h ^s"],
   \ "xul": ["xul", "https://developer.mozilla.org/en-US/search?q=^s&topic=xul"]
 \ }
