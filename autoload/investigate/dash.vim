@@ -23,7 +23,7 @@ endfunction
 
 " Replace the identifier with the syntax if it exists ------ {{{
 function! s:SyntaxString(string, syntax)
-  return substitute(a:string, '\M\^f', a:syntax, 'g')
+  return substitute(substitute(a:string, '\M\^g', a:syntax, 'g'), '\M\^f', split(a:syntax, ',')[0], 'g')
 endfunction
 " }}}
 
@@ -37,7 +37,7 @@ function! s:DashFormat(path)
   let l:command = s:LSRegisterCommand(a:path)
   let l:output = system(l:command)
   if s:HasDashPlugin(l:output)
-    let l:format = "dash-plugin://keys=^f\\&query=^x"
+    let l:format = "dash-plugin://keys=^g\\&query=^x"
   end
 
   return l:format
