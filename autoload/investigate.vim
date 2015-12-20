@@ -95,14 +95,14 @@ endfunction
 "}}}
 
 " The actual open command for mapping ------ {{{
-function! investigate#Investigate(mode)
+function! investigate#Investigate(...)
   let l:filetype = &filetype
   if empty(l:filetype)
     echomsg "You must set your filetype to look up documentation"
     return
   endif
 
-  if a:mode ==# 'n'
+  if a:0 == 0 || a:1 ==# 'n'
     let l:word = expand("<cword>")
   else
     let l:word = s:get_selected_text()
