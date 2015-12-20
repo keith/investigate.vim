@@ -18,5 +18,6 @@ if filereadable(g:investigate_local_filename)
 endif
 
 if !hasmapto("investigate#Investigate()") && empty(mapcheck("gK", "n"))
-  nnoremap gK :call investigate#Investigate()<CR>
+  nnoremap gK :call investigate#Investigate('n')<CR>
+  vnoremap gK :call investigate#Investigate('v')<CR>
 endif

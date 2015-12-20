@@ -15,7 +15,8 @@ By default investigate is mapped to `gK`. If you want to set up your
 own mapping you should use something like this:
 
 ```
-nnoremap <leader>K :call investigate#Investigate()<CR>
+nnoremap <leader>K :call investigate#Investigate('n')<CR>
+vnoremap <leader>K :call investigate#Investigate('v')<CR>
 ```
 
 With this mapping, using <leader>K when your cursor is on a specific
