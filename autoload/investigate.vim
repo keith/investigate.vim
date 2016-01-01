@@ -102,10 +102,10 @@ function! investigate#Investigate(...)
     return
   endif
 
-  if a:0 == 0 || a:1 ==# 'n'
-    let l:word = expand("<cword>")
-  else
+  if a:0 == 1 && a:1 ==# 'v'
     let l:word = s:get_selected_text()
+  else
+    let l:word = expand("<cword>")
   endif
 
   if empty(l:word)
