@@ -82,15 +82,32 @@ function! s:BuildCommand(filetype, word)
 endfunction
 " }}}
 
+" Get selected text from buffer ------ {{{
+function! s:get_selected_text()
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  let text = substitute(join(lines, "\n"), '[\n\r]\+', ' ', 'g')
+  return substitute(text, '^\s*\|\s*$', '', 'g')
+endfunction
+"}}}
+
 " The actual open command for mapping ------ {{{
-function! investigate#Investigate()
+function! investigate#Investigate(...)
   let l:filetype = &filetype
   if empty(l:filetype)
     echomsg "You must set your filetype to look up documentation"
     return
   endif
 
-  let l:word = expand("<cword>")
+  if a:0 == 1 && a:1 ==# 'v'
+    let l:word = s:get_selected_text()
+  else
+    let l:word = expand("<cword>")
+  endif
+
   if empty(l:word)
     echomsg "Put your cursor over a word to look up it's documentation"
     return
