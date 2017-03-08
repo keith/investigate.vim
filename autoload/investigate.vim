@@ -109,7 +109,7 @@ function! investigate#Investigate(...)
   endif
 
   if empty(l:word)
-    echomsg "Put your cursor over a word to look up it's documentation"
+    echomsg "Put your cursor over a word to look up its documentation"
     return
   endif
 
