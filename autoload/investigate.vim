@@ -21,7 +21,9 @@ function! s:Executable()
     else
       echomsg "Missing `open` command"
       return ""
-    endif
+    endif    
+  elseif has("win32unix")
+    return "cygstart "
   elseif has("unix")
     if executable("xdg-open")
       return "xdg-open "
@@ -30,8 +32,6 @@ function! s:Executable()
     elseif executable("gnome-open")
       return "gnome-open "
     endif
-  elseif has("win32unix")
-    return "cygstart "
   elseif has("win32")
     return "explorer "
   endif
