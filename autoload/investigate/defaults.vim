@@ -24,6 +24,7 @@ let s:defaultLocations = {
   \ "html": ["html,svg,css,bootstrap,foundation,awesome,statamic,javascript,jquery,jqueryui,jquerym,angularjs,backbone,marionette,meteor,moo,prototype,ember,lodash,underscore,sencha,extjs,knockout,zepto,cordova,phonegap,yui", "https://developer.mozilla.org/en-US/search?q=^s&topic=html"],
   \ "java": ["java,javafx,grails,groovy,playjava,spring,cvj,processing", "http://javadocs.org/^s"],
   \ "javascript": ["javascript,jquery,jqueryui,jquerym,angularjs,backbone,marionette,meteor,sproutcore,moo,prototype,bootstrap,foundation,lodash,underscore,ember,sencha,extjs,titanium,knockout,zepto,yui,d3,svg,dojo,coffee,nodejs,express,grunt,mongoose,moment,require,awsjs,jasmine,sinon,chai,html,css,cordova,phonegap,unity3d", "https://developer.mozilla.org/en-US/search?q=^s&topic=api&topic=js"],
+  \ "julia": ["julia", "https://docs.julialang.org/en/v1/search/?q=^s"],
   \ "liquid": ["", "http://rubydoc.info/search/gems/liquid?q=^s"],
   \ "lua": ["lua,corona", "https://encrypted.google.com/search?q=^s&sitesearch=lua.org/pil/"],
   \ "objc": ["iphoneos", "https://developer.apple.com/search/index.php?q=^s"],
