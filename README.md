@@ -19,7 +19,7 @@ nnoremap <leader>K :call investigate#Investigate('n')<CR>
 vnoremap <leader>K :call investigate#Investigate('v')<CR>
 ```
 
-With this mapping, using <leader>K when your cursor is on a specific
+With this mapping, using `<leader>K` when your cursor is on a specific
 word will open its documentation. The [help
 file](https://github.com/keith/investigate.vim/blob/master/doc/investigate.txt)
 has tons of documentation on configuration. Here are some of the
